@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    color: #000;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 31px;
+}
+
+header {
+    display: flex;
+    width: 1920px;
+    padding: 16px 400px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#signup, #login, #posting{
+    color: var(--gray3, #8F9094);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; 
+    border: none;
+    background-color: white;
+}
+
+header{
+    display: flex;
+    width: 100%;
+    padding: 16px 0px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#search{
+   border-radius: 15px;
+   width: 700px;
+   height: 50px;
+}
+
+#postcontainer{
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--New-group-gray-100, #EFF0F2);
+}
+
+#post{
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--New-group-gray-100, #EFF0F2);
+}
+
+#empty{
+    display: flex;
+    width: 1920px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+    background: var(--white, #FFF);
+}
+
+h2{
+    color: var(--black, #000);
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 27px; 
+}
+
+p{
+    display: flex;
+    width: 500px;
+    height: 43px;
+    flex-direction: column;
+    justify-content: center;
+}
+
