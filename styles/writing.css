@@ -72,3 +72,13 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+span {
+    color: var(--Main, #3269F6);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; 
+}
