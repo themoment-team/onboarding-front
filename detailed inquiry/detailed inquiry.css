@@ -238,7 +238,7 @@ circle {
     font-size: 12px;
     text-align: center;
     margin-top: 5px;
-    display: block; /* 남은 글자 수를 항상 보이도록 설정 */
+    display: block;
     padding-bottom: px;
     margin-top: 0%;
     color: blue;

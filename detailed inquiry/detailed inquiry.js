@@ -11,7 +11,7 @@ document.getElementById('comment-form').addEventListener('submit', function(even
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="12" fill="black"/>
             </svg>
-            <span class="userName">나</span>
+            <span class="userName">MY</span>
             <p>${commentText}</p>`;
         commentList.appendChild(newComment);
 
@@ -21,19 +21,17 @@ document.getElementById('comment-form').addEventListener('submit', function(even
         textarea.style.height = "50px";
         const charCount = document.getElementById('char-count');
         charCount.style.display = 'none';
-
-        
     }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
     const textarea = document.getElementById('comment-text');
     const charCount = document.getElementById('char-count');
-    const initialHeight = textarea.clientHeight; // Store the initial height of the textarea
+    const initialHeight = textarea.clientHeight;
 
     function autoResize() {
-        textarea.style.height = "50px"; // Temporarily reduce the height
-        textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to scrollHeight
+        textarea.style.height = "50px";
+        textarea.style.height = textarea.scrollHeight + 'px';
     }
 
     function handleExcessCharacters() {
@@ -60,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
     textarea.addEventListener('input', handleExcessCharacters);
     textarea.addEventListener('input', updateCharCount);
 
-    // Initialize the textarea size and char count
     autoResize();
     updateCharCount();
 });
