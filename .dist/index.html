@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOO</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <header>
         <h1>BOO</h1>
-        <input type="search" id="search" placeholder="검색어 입력">
+        <form id="searchForm">
+            <input type="search" id="search" name="query" placeholder="검색어 입력">
+        </form>
         <div>
-            <button id="login">log in</button>
-            <button id="signup">sign up</button>
-            <button id="posting">posting</button>
+            <form id="loginForm" action="/login" method="GET">
+                <button type="submit" id="login">log in</button>
+            </form>
+            <form id="signupForm" action="/users/signup" method="GET">
+                <button type="submit" id="signup">sign up</button>
+            </form>
+            <form id="postingForm" action="/posts/write" method="GET">
+                <button type="submit" id="posting">posting</button>
+            </form>
         </div>
     </header>
     <div id="empty"></div>
     <div id="postcontainer">
-        <div id="post">
-            
-        </div>
+        <ul id="post"></ul>
     </div>
-  
-    <ul id="postlist"></ul>
-    <script src="App.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
