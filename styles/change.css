@@ -1,0 +1,212 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.screen {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.div {
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  display: flex;
+  width: 90%;
+  padding: 16px 50px;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10; 
+}
+
+.text-wrapper {
+  font-family: 'Pretendard-Regular';
+  font-weight: 600;
+  color: #000000;
+  font-size: 24px;
+  text-align: center;
+  line-height: 31px;
+  white-space: nowrap;
+}
+
+.frame {
+  display: flex;
+  align-items: center;
+}
+
+.text-wrapper-2 {
+  background-color: white; 
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  color: #555;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+  white-space: nowrap;
+  gap: 0;
+}
+
+.frame-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  position: absolute;
+  top: 103px;
+  left: 400px;
+}
+
+.frame-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 48px;
+  border-radius: 12px;
+  border: 1px solid #EFF0F2;
+  background-color: #fff;
+}
+
+.frame-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.text-wrapper-3 {
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+}
+
+.p {
+  width: 500px;
+  height: 43px;
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  color: #555;
+  font-size: 16px;
+  line-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.frame-5 {
+  display: flex;
+  width: 500px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.frame-6 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.img {
+  width: 24px;
+  height: 24px;
+}
+
+.text-wrapper-4 {
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+}
+
+.frame-7 {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.text-wrapper-5 {
+  font-family: 'Pretendard-Regular';
+  font-weight: 400;
+  color: #777;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.frame-8 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heart-streamline {
+  width: 16px;
+  height: 16px;
+}
+
+#next {
+  display: flex;
+  width: 400px;
+  padding: 12px 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  background: #D1D1D1;
+  border: none;
+  cursor: pointer;
+}
+
+#subtitle {
+  color: #000;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 43px;
+}
+
+#title {
+  color: #000;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 31px;
+}
+
+.input {
+  display: flex;
+  width: 400px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 
+  12px;
+  border: 1px solid #EFF0F2;
+  font-family: 'Pretendard-Regular';
+}
