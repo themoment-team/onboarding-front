@@ -210,3 +210,13 @@
   border: 1px solid #EFF0F2;
   font-family: 'Pretendard-Regular';
 }
+
+#error{
+  color: var(--Erorr, #DF454A);
+text-align: center;
+font-family: Pretendard;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px;
+}
