@@ -43,10 +43,13 @@ p {
 }
 
 hr {
-    border-color: #EFF0F2;
+    border: 0;
+    height: 1px;
+    background: #EFF0F2;
 }
 
-#home {
+
+#prvBtn {
     background-color: var(--button-home);
     border: none;
     cursor: pointer;
@@ -60,6 +63,8 @@ hr {
     background-color: var(--title-color);
     border: none;
     cursor: pointer;
+    color: #000;
+    text-decoration: none;
 }
 
 .BodySmall {
@@ -112,8 +117,12 @@ hr {
 .page-title {
     text-align: left;
     font-size: 32px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-weight: 600;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
 }
 
 #details {
@@ -133,6 +142,7 @@ hr {
 
 .article {
     margin-bottom: 40px;
+    border-radius: 5px;
 }
 
 .interaction {
@@ -243,3 +253,48 @@ circle {
     margin-top: 0%;
     color: blue;
 }
+#details {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    z-index: 1;
+    flex-direction: column;  /* 세로 배치 */
+    transform: translateY(50%);
+}
+
+.dropdown-content button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    text-align: left;
+    width: 100%;
+    background: #9a9b9f ;
+
+}
+.dropdown-content button:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}.dropdown-content button:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.dropdown-content button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.page-title[contentEditable="true"], .article[contentEditable="true"]{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+
