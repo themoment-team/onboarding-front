@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="header">
+        <a onclick="window.location='/'" class="title">BOO</a>
+        <div class="nav-buttons">
+            <span id="login" onclick="window.location='/login'">로그인</span>
+            <span id="signup">회원가입</span>
+        </div>
+    </div>
+    <div class="main">
+        <div class="login-box">
+            <h2 class="login-title">BOO</h2>
+            <form id="registrationForm" class="login-form">
+                <div class="form-group">
+                    <label for="username" class="label">아이디</label>
+                    <input type="text" id="username" name="username" placeholder="아이디를 입력해주세요" required>
+                    <div id="usernameError" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="nickname" class="label">닉네임</label>
+                    <input type="text" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요" required>
+                    <div id="nicknameError" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="label">비밀번호</label>
+                    <input type="password" id="password" name="password" placeholder="영문, 숫자, 특수문자 2개 이상 포함 8글자 이상" required>
+                    <button type="button" id="togglePassword" class="toggle-password">
+                        <svg id="showPassword" xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none" style="display:none;">
+                            <path d="M8 2.94116C10.6363 2.94116 12.5408 3.78534 13.7835 4.62081C14.4065 5.03959 14.8643 5.45712 15.1642 5.76687C15.2366 5.84164 15.2997 5.91005 15.3536 5.97057C15.2997 6.03109 15.2366 6.09949 15.1642 6.17427C14.8643 6.48401 14.4065 6.90155 13.7835 7.32032C12.5408 8.1558 10.6363 8.99997 8 8.99997C5.36369 8.99997 3.45923 8.1558 2.21646 7.32032C1.59353 6.90155 1.13566 6.48401 0.835807 6.17427C0.763422 6.09949 0.700328 6.03109 0.646427 5.97057C0.700328 5.91005 0.763422 5.84164 0.835807 5.76687C1.13566 5.45712 1.59353 5.03959 2.21646 4.62081C3.45923 3.78534 5.36369 2.94116 8 2.94116ZM0.407465 5.68079C0.407257 5.6805 0.407198 5.68041 0.407289 5.68054L0.407465 5.68079ZM0.407289 6.26059C0.407198 6.26072 0.407257 6.26064 0.407465 6.26035L0.407289 6.26059Z" stroke="#6F6F7B"/>
+                            <ellipse cx="8.00007" cy="5.4412" rx="2.96296" ry="2.82353" fill="#6F6F7B"/>
+                            <path d="M13.2414 1.74983C13.3845 1.51365 13.3044 1.21429 13.0624 1.08117C12.8205 0.948062 12.5084 1.03161 12.3653 1.26779L13.2414 1.74983ZM12.1419 3.56457L13.2414 1.74983L12.3653 1.26779L11.2658 3.08253L12.1419 3.56457Z" fill="#6F6F7B"/>
+                            <path d="M8.5 0.500032C8.5 0.22389 8.27614 3.19673e-05 8 3.19481e-05C7.72386 3.19289e-05 7.5 0.22389 7.5 0.500032L8.5 0.500032ZM8.5 2.61768L8.5 0.500032L7.5 0.500032L7.5 2.61768L8.5 2.61768Z" fill="#6F6F7B"/>
+                            <path d="M2.75883 1.74983C2.61574 1.51365 2.69587 1.21428 2.93782 1.08117C3.17976 0.948062 3.49189 1.03161 3.63498 1.26779L2.75883 1.74983ZM3.85831 3.56457L2.75883 1.74983L3.63498 1.26779L4.73446 3.08253L3.85831 3.56457Z" fill="#6F6F7B"/>
+                        </svg>
+                        <svg id="hidePassword" xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
+                            <path d="M15.5 1C15.5 1 13.1562 4.6 8 4.6C2.84375 4.6 0.5 1 0.5 1" stroke="#6F6F7B" stroke-linecap="round"/>
+                            <path d="M3.18768 5.83607C3.04536 6.07272 3.12578 6.37307 3.36731 6.50694C3.60883 6.64081 3.92 6.55749 4.06232 6.32085L3.18768 5.83607ZM4.43768 3.75761L3.18768 5.83607L4.06232 6.32085L5.31232 4.24239L4.43768 3.75761Z" fill="#6F6F7B"/>
+                            <path d="M7.5 6.99998C7.5 7.27612 7.72386 7.49998 8 7.49998C8.27614 7.49998 8.5 7.27612 8.5 6.99998H7.5ZM7.5 4.59998L7.5 6.99998H8.5L8.5 4.59998H7.5Z" fill="#6F6F7B"/>
+                            <path d="M12.8123 5.83607C12.9546 6.07272 12.8742 6.37307 12.6327 6.50694C12.3912 6.64081 12.08 6.55749 11.9377 6.32085L12.8123 5.83607ZM11.5623 3.75761L12.8123 5.83607L11.9377 6.32085L10.6877 4.24239L11.5623 3.75761Z" fill="#6F6F7B"/>
+                        </svg>
+                    </button>
+                    <div id="passwordError" class="error-message"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword" class="label">비밀번호 재입력</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 확인하여 입력해주세요" required>
+                    <button type="button" id="toggleConfirmPassword" class="toggle-confirmPassword">
+                        <svg id="showConfirmPassword" xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none" style="display:none;">
+                            <path d="M8 2.94116C10.6363 2.94116 12.5408 3.78534 13.7835 4.62081C14.4065 5.03959 14.8643 5.45712 15.1642 5.76687C15.2366 5.84164 15.2997 5.91005 15.3536 5.97057C15.2997 6.03109 15.2366 6.09949 15.1642 6.17427C14.8643 6.48401 14.4065 6.90155 13.7835 7.32032C12.5408 8.1558 10.6363 8.99997 8 8.99997C5.36369 8.99997 3.45923 8.1558 2.21646 7.32032C1.59353 6.90155 1.13566 6.48401 0.835807 6.17427C0.763422 6.09949 0.700328 6.03109 0.646427 5.97057C0.700328 5.91005 0.763422 5.84164 0.835807 5.76687C1.13566 5.45712 1.59353 5.03959 2.21646 4.62081C3.45923 3.78534 5.36369 2.94116 8 2.94116ZM0.407465 5.68079C0.407257 5.6805 0.407198 5.68041 0.407289 5.68054L0.407465 5.68079ZM0.407289 6.26059C0.407198 6.26072 0.407257 6.26064 0.407465 6.26035L0.407289 6.26059Z" stroke="#6F6F7B"/>
+                            <ellipse cx="8.00007" cy="5.4412" rx="2.96296" ry="2.82353" fill="#6F6F7B"/>
+                            <path d="M13.2414 1.74983C13.3845 1.51365 13.3044 1.21429 13.0624 1.08117C12.8205 0.948062 12.5084 1.03161 12.3653 1.26779L13.2414 1.74983ZM12.1419 3.56457L13.2414 1.74983L12.3653 1.26779L11.2658 3.08253L12.1419 3.56457Z" fill="#6F6F7B"/>
+                            <path d="M8.5 0.500032C8.5 0.22389 8.27614 3.19673e-05 8 3.19481e-05C7.72386 3.19289e-05 7.5 0.22389 7.5 0.500032L8.5 0.500032ZM8.5 2.61768L8.5 0.500032L7.5 0.500032L7.5 2.61768L8.5 2.61768Z" fill="#6F6F7B"/>
+                            <path d="M2.75883 1.74983C2.61574 1.51365 2.69587 1.21428 2.93782 1.08117C3.17976 0.948062 3.49189 1.03161 3.63498 1.26779L2.75883 1.74983ZM3.85831 3.56457L2.75883 1.74983L3.63498 1.26779L4.73446 3.08253L3.85831 3.56457Z" fill="#6F6F7B"/>
+                        </svg>
+                        <svg id="hideConfirmPassword" xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
+                            <path d="M15.5 1C15.5 1 13.1562 4.6 8 4.6C2.84375 4.6 0.5 1 0.5 1" stroke="#6F6F7B" stroke-linecap="round"/>
+                            <path d="M3.18768 5.83607C3.04536 6.07272 3.12578 6.37307 3.36731 6.50694C3.60883 6.64081 3.92 6.55749 4.06232 6.32085L3.18768 5.83607ZM4.43768 3.75761L3.18768 5.83607L4.06232 6.32085L5.31232 4.24239L4.43768 3.75761Z" fill="#6F6F7B"/>
+                            <path d="M7.5 6.99998C7.5 7.27612 7.72386 7.49998 8 7.49998C8.27614 7.49998 8.5 7.27612 8.5 6.99998H7.5ZM7.5 4.59998L7.5 6.99998H8.5L8.5 4.59998H7.5Z" fill="#6F6F7B"/>
+                            <path d="M12.8123 5.83607C12.9546 6.07272 12.8742 6.37307 12.6327 6.50694C12.3912 6.64081 12.08 6.55749 11.9377 6.32085L12.8123 5.83607ZM11.5623 3.75761L12.8123 5.83607L11.9377 6.32085L10.6877 4.24239L11.5623 3.75761Z" fill="#6F6F7B"/>
+                        </svg>
+                    </button>
+                    <div id="confirmPasswordError" class="error-message"></div>
+                </div>
+                <button type="submit" id="submitBtn" class="login-button" onclick="window.location='/login'">회원가입</button>
+            </form>
+        </div>
+    </div>
+    <script src="signup.js"></script>
+</body>
+</html>

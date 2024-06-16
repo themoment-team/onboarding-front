@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 650px;
+    background-color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000000;
+    background-color: white;
+    border: none;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+#login {
+    color: #3269F6;
+}
+
+#signup {
+    color: #8F9094;
+    cursor: pointer;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+}
+
+.login-box {
+    width: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--New-group-gray-100, #EFF0F2);
+
+}
+
+.login-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.login-form input {
+    width: calc(100% - 32px);
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.login-form input.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.login-form input.error::placeholder {
+    color: red;
+}
+
+.reset-link,
+.signup-link {
+    text-decoration: none;
+    color: #3269f6;
+    background-color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.reset-link {
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    padding-left: 76%;
+    text-align: right;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    background-color: #8f9094;
+    color: #ffffff;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.login-button.active {
+    background-color: #3269f6;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.signup-prompt {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-form input::placeholder {
+    color: #8f9094;
+}
+
+input {
+    outline: none;
+    }
+
+#username, #password {
+    border: 1px solid var(--New-group-gray-100, #EFF0F2);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+#password {
+    width: calc(100% - 40px);
+    padding-right: 28px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
