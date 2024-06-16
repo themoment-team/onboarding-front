@@ -5,6 +5,7 @@ const passwordInput = document.querySelector("#password");
 const error = document.querySelector("#error");
 const loginBtn = document.querySelector("#login");
 const signupBtn = document.querySelector("#signup");
+const logo = document.querySelector("h1");
 
 function btnColor() {
     const id = idInput.value;
@@ -65,3 +66,6 @@ nextBtn.addEventListener("click", logIn);
 logInForm.addEventListener("submit", logIn)
 
 
+logo.addEventListener('click', function(){
+    window.location.href("/");
+});
