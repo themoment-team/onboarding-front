@@ -5,6 +5,11 @@ const previousBtn = document.querySelector("#previous");
 const titleLength = document.querySelector("#titlelength");
 const detailLength = document.querySelector("#detaillength");
 const postForm = document.querySelector("#postForm"); 
+const logo = document.querySelector("h1");
+
+logo.addEventListener('click', function(){
+    window.location.href("/");
+});
 
 function btnColor() {
     if (title.value !== "" && detail.value !== "") {
