@@ -6,7 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const signupBtn = document.getElementById("signup");
     const result1 = document.getElementById("result1");
     const result2 = document.getElementById("result2");
-
+    const logo = document.querySelector("h1");
+    
+    logo.addEventListener('click', function(){
+        window.location.href("/");
+    });
+    
     function btnColor() {
         const passwordValue = passwordInput.value;
         const newpasswordValue = newpasswordInput.value;
