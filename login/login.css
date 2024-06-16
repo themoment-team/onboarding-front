@@ -27,6 +27,8 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: #000000;
+    background-color: white;
+    border: none;
 }
 
 .nav-buttons {
@@ -40,6 +42,7 @@ body {
 
 #signup {
     color: #8F9094;
+    cursor: pointer;
 }
 
 .main {
@@ -54,7 +57,7 @@ body {
     padding: 40px;
     background-color: #ffffff;
     border-radius: 12px;
-    border: 1px solid var(--New-group-gray-100, #B4B5B7);
+    border: 1px solid var(--New-group-gray-100, #EFF0F2);
 
 }
 
@@ -101,13 +104,16 @@ body {
 .signup-link {
     text-decoration: none;
     color: #3269f6;
+    background-color: white;
+    cursor: pointer;
+    border: none;
 }
 
 .reset-link {
     font-family: Pretendard;
     font-size: 12px;
     font-style: normal;
-    padding-left: 77%;
+    padding-left: 76%;
     text-align: right;
 }
 
@@ -142,3 +148,28 @@ body {
 input {
     outline: none;
     }
+
+#username, #password {
+    border: 1px solid var(--New-group-gray-100, #EFF0F2);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+#password {
+    width: calc(100% - 40px);
+    padding-right: 28px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
