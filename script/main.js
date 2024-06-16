@@ -1,9 +1,11 @@
 const logIn = document.querySelector("#login");
 const signUp = document.querySelector("#signup");
-const logOut = document.querySelector("#logout");
 const posting = document.querySelector("#posting");
 const searchForm = document.querySelector("#searchForm");
 const postList = document.querySelector("#post");
+const logo = document.querySelector("h1");
+const post = document.querySelector(".frame-6");
+let id = "";
 
 const checkLogin = async () => {
     try {
@@ -14,47 +16,42 @@ const checkLogin = async () => {
             logIn.classList.add("hidden");
             signUp.classList.add("hidden");
             posting.classList.remove("hidden");
+            id = data.id;
+            return id;
         } else {
             posting.classList.add("hidden");
         }
     } catch (error) {
-        console.error('Error checking login status:', error);
+        console.error(error);
     }
 };
 
 checkLogin();
 
-const searching = async (query = '') => {
-    try {
-        const response = await fetch(`/api/posts?search=${encodeURIComponent(query)}`);
-        if (!response.ok) {
-            throw new Error('Error fetching posts');
-        }
-        const posts = await response.json();
-        displayPosts(posts);
-    } catch (error) {
-        console.error('Error fetching posts:', error);
-        postList.innerHTML = `<h2>${error.message}</h2>`;
+const searchPosts = (query) => {
+    if (!query.trim()) {
+        displayPosts(allPosts); 
+        return;
     }
-};
 
-const displayPosts = (posts) => {
-    const displayMessage = posts.length === 0 ? '<h2>검색 결과가 없습니다</h2>' : '';
-    postList.innerHTML = displayMessage;
-    posts.forEach(post => {
-        const listItem = document.createElement("li");
-        listItem.innerHTML = `<h3>${post.title}</h3>
-            <p>${post.content}</p>
-            <div>${post.counting}회 조회 <img src="heart.png" alt="Heart">${post.likes}</div>`;
-        postList.appendChild(listItem);
+    const filteredPosts = allPosts.filter(post => {
+
+        return post.title.toLowerCase().includes(query.toLowerCase()) ||
+               post.content.toLowerCase().includes(query.toLowerCase());
     });
-    postList.classList.toggle("hidden", posts.length === 0);
+
+    displayPosts(filteredPosts); 
 };
 
-searchForm.addEventListener("submit", async (event) => {
+searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const query = event.target.elements.search.value;
-    await searching(query);
+    searchPosts(query); 
+});
+
+
+post.addEventListener('click', () => {
+    window.location.href = `/?id=${123}`;
 });
 
 posting.addEventListener('click', () => {
@@ -69,12 +66,67 @@ signUp.addEventListener('click', () => {
     window.location.href = '/users/signup';
 });
 
-logOut.addEventListener('click', (event) => {
-    event.preventDefault();
-    const userConfirmed = confirm("정말 로그아웃 하시겠습니까?");
-    if (userConfirmed) {
-        window.location.href = '/logout';
-    }
-});
+const logOut = document.querySelector("#logout");
 
-searching();
+
+
+
+createPostElement();
+function createPostElement(post) {
+    const postDiv = document.createElement('div');
+    postDiv.classList.add('post');
+
+    const titleElement = document.createElement('h2');
+    titleElement.textContent = post.title;
+    titleElement.classList.add("text-wrapper-6");
+
+    const authorElement = document.createElement('p');
+    authorElement.classList.add("text-wrapper-7");
+    authorElement.innerHTML = `<svg class="img" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <g clip-path="url(#clip0_2013_976)">
+          <rect width="24" height="24" rx="12" fill="#CBCCCE"/>
+          <path d="M12.5 15C15.1244 15 17.25 12.8744 17.25 10.25C17.25 7.62562 15.1244 5.5 12.5 5.5C9.87563 5.5 7.75 7.62562 7.75 10.25C7.75 12.8744 9.87563 15 12.5 15ZM12.5 17.375C9.32937 17.375 3 18.9662 3 22.125V23.3125C3 23.9656 3.53438 24.5 4.1875 24.5H20.8125C21.4656 24.5 22 23.9656 22 23.3125V22.125C22 18.9662 15.6706 17.375 12.5 17.375Z" fill="white"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_2013_976">
+            <rect width="24" height="24" rx="12" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>${post.author}`;
+
+    const contentElement = document.createElement('p');
+    contentElement.textContent = post.content;
+    contentElement.classList.add("p");
+
+    const counting = document.createElement('div');
+    counting.textContent = `${post.counting}회 조회`;
+    counting.classList.add("text-wrapper-8");
+
+    const like = document.createElement('div');
+    like.innerHTML = `
+    <svg class="heart-streamline" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <g clip-path="url(#clip0_2013_1031)">
+          <path d="M8.00496 14.152L1.74854 8.48496C-1.6517 5.08472 3.34664 -1.44373 8.00496 3.83796C12.6632 -1.44373 17.639 5.10739 14.2614 8.48496L8.00496 14.152Z" stroke="#B4B5B7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_2013_1031">
+            <rect width="16" height="16" fill="white"/>
+          </clipPath>
+        </defs>
+    </svg>
+    ${post.likes}`;
+    like.classList.add("text-wrapper-8");
+
+    postDiv.appendChild(titleElement);
+    postDiv.appendChild(authorElement);
+    postDiv.appendChild(contentElement);
+    postDiv.appendChild(counting);
+    postDiv.appendChild(like);
+
+    const postsContainer = document.querySelector('.frame-7');
+    postsContainer.appendChild(postDiv);
+}
+
+logo.addEventListener('click', function(){
+    window.location.href("/");
+});
