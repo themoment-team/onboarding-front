@@ -46,6 +46,7 @@ hr {
     border: 0;
     height: 1px;
     background: #EFF0F2;
+    margin: 35px 0px;
 }
 
 
@@ -98,7 +99,7 @@ hr {
 
 #myProfile{
     position: relative;
-    top: 7px;
+    top: 10px;
 }
 
 .main {
@@ -190,8 +191,13 @@ circle {
 
 .comment {
     padding: 10px;
+    margin-top: 25px;
     margin-bottom: 10px;
     border-radius: 5px;
+}
+
+.commentContent {
+    margin: 0px 28px;
 }
 
 .comment-form {
@@ -235,7 +241,7 @@ circle {
     height: 36px;
 }
 
-.userName {
+.commentAuthor {
     position: relative;
     bottom: 5px;
 }
@@ -265,7 +271,7 @@ circle {
     position: absolute;
     background-color: #f9f9f9;
     z-index: 1;
-    flex-direction: column;  /* 세로 배치 */
+    flex-direction: column;
     transform: translateY(50%);
 }
 
