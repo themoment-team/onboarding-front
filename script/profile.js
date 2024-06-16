@@ -4,15 +4,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     let userId = null;
     const logo = this.document.querySelector("h1");
     const name = document.querySelector("#name");
+    const signOff = document.querySelector("#signoff");
 
     home.addEventListener('click', function() {
         window.location.href = '/posts/write';
     });
 
-    logo.addEventListener('click', function(){
-        window.location.href("/");
+    logo.addEventListener('click', function() {
+        window.location.href = "/";
     });
-    
+
     async function checkLogin() {
         try {
             const response = await fetch("/signin");
@@ -75,7 +76,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         ${post.likes}
     `;
 
-
         postDiv.appendChild(titleElement);
         postDiv.appendChild(authorElement);
         postDiv.appendChild(contentElement);
@@ -133,6 +133,36 @@ document.addEventListener('DOMContentLoaded', async function() {
         .catch(err => {
             console.error(err.message);
             alert('로그아웃 중 오류가 발생했습니다.');
+        });
+    });
+
+    signOff.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        fetch(`/user/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error('회원 탈퇴 실패');
+            }
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);
+                window.location.href = `/login/${userId}`;
+            } else {
+                throw new Error(data.message);
+            }
+        })
+        .catch(err => {
+            console.error(err.message);
+            alert('회원 탈퇴 중 오류가 발생했습니다.');
         });
     });
 });
