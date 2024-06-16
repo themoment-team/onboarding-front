@@ -65,6 +65,7 @@ h3{
 button{
     border: none;
     background-color: white;
+    cursor: pointer;
 }
 
 svg{
