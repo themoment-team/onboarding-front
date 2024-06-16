@@ -21,19 +21,16 @@ fetch(fetchUserUrl).then(response => {
     }
 });
 
-
 const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
 if(id === null) {pageTitle.textContent = "게시글 정보가 없습니다."; article.textContent="정보 없음";}
 
 console.log(id);
 
-const fetchPostsUrl = `https://b5031de1-3143-488b-ba5a-cc4ec2827c9a.mock.pstmn.io/api/post/${id}`;
-const fetchCommentsUrl = `https://c2921644-504f-4c06-9045-da9e5e408389.mock.pstmn.io/api/post/${id}/comments`;
 let isPostLoading = true;
 let post = {};
-let postUrl = `http://${hostURL}/api/post/${id}`;
-let commentUrl = `http://${hostURL}/api/post/${id}/comments`;
+const fetchPostsUrl = `http://${hostURL}/api/post/${id}`;
+const fetchCommentsUrl = `http://${hostURL}/api/post/${id}/comments`;
 // fetch를 사용한 게시글 요청
 fetch(fetchPostsUrl)
     .then((response) => {
@@ -60,7 +57,6 @@ fetch(fetchPostsUrl)
     .catch((error) => {
         console.error("게시글 요청 에러:", error,fetchPostsUrl);
     });
-
 
 fetch(fetchCommentsUrl)
     .then((response) => {
@@ -104,6 +100,7 @@ dropdown.innerHTML = `
     <button id="editBtn">수정</button>
     <button id="deleteBtn">삭제</button>
 `;
+
 detailsButton.parentNode.insertBefore(dropdown, detailsButton.nextSibling);
 
 const editButton = document.getElementById("editBtn");
@@ -126,7 +123,7 @@ editButton.addEventListener("click", function () {
         editButton.textContent = "수정";
         post.title = pageTitle.textContent;
         post.content = article.textContent;
-        fetch(postUrl,{method:"PATCH",body:{
+        fetch(fetchPostsUrl,{method:"PATCH",body:{
             title:post.title,
             content:post.content
         }}).then(response=>{
@@ -158,7 +155,7 @@ article.addEventListener("input", () => {
 deleteButton.addEventListener("click", function () {
     if (confirm("정말로 삭제하시겠습니까?")) {
         
-        fetch(postUrl,{method:"DELETE"}).then(response=>{
+        fetch(fetchPostsUrl,{method:"DELETE"}).then(response=>{
             if(!response.ok) alert("게시물 삭제 실패");
             else alert("게시물이 삭제되었습니다.");
         });
@@ -224,7 +221,7 @@ document.getElementById('comment-form').addEventListener('submit', function(even
         const charCount = document.getElementById('char-count');
         charCount.style.display = 'none';
 
-        fetch(commentUrl,{method:"POST",body:{
+        fetch(fetchCommentsUrl,{method:"POST",body:{
             content:commentText,
             author:user.nickname
         }}).then(response =>{
@@ -285,7 +282,6 @@ commentText.addEventListener("input", function () {
 
 autoResize();
 updateCharCount();
-
 
 let heartClicked = false;
 document.getElementById('heart-button').addEventListener('click', function() {
