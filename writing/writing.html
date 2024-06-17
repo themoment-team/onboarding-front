@@ -25,12 +25,10 @@
         <form action="/">
             <button id="previous"><</button>
         </form>
-        <form method="POST">
+        <form method="POST" id="postForm">
             <textarea cols="30" rows="1" name="text" 
     oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'
     style="resize: none; padding: 8px; margin: 20px;" id="title" placeholder="제목을 입력하세요 (최대 15글자)" maxlength="15" minlength="1"></textarea>
-        </form>
-        <form method="POST">
             <textarea cols="30" rows="1" name="text" 
     oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'
     style="resize: none; padding: 8px; margin: 20px;" id="detail" placeholder="내용을 입력하세요 (최대 500글자)" maxlength="500" minlength="1"></textarea>

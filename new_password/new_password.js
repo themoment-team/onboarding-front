@@ -9,15 +9,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const logo = document.querySelector("h1");
     const profile = document.querySelector("#profile");
     let userId = "";
-    
-    profile.addEventListener("click", function(){
-        window.location.href(`/profile?id=${userId}`);
-    })  
 
-    logo.addEventListener('click', function(){
-        window.location.href("/");
-    });
-    
+    if (profile) {
+        profile.addEventListener("click", function(){
+            window.location.href = `/profile?id=${userId}`;
+        });
+    }
+
+    if (logo) {
+        logo.addEventListener('click', function(){
+            window.location.href = "/";
+        });
+    }
+
     function btnColor() {
         const passwordValue = passwordInput.value;
         const newpasswordValue = newpasswordInput.value;
@@ -62,8 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const newpasswordValue = newpasswordInput.value;
         const confirmPasswordValue = passwordInput.value;
 
-        validatePassword(); 
-
         if (newpasswordValue === confirmPasswordValue && newpasswordValue !== "") {
             result2.innerText = '비밀번호가 일치합니다.';
             result2.style.color = "green";
@@ -96,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const newpasswordValue = newpasswordInput.value;
 
-        fetch(`user/${userId}`, {
+        fetch(`/api/user/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,36 +109,51 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => {
             if (response.ok) {
-                window.location.href = "/signin";
+                window.location.href = "/login";
             } else {
                 return response.json().then(error => { throw new Error(error.message); });
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error(error));
     }
 
     function redirectToLogin() {
-        window.location.href = "/signin";
+        window.location.href = "/login";
     }
 
     function redirectToSignup() {
-        window.location.href = "/signup";
+        window.location.href = "/users/signup";
     }
 
-    nextBtn.addEventListener("click", changePassword);
-    document.getElementById("nextform").addEventListener("submit", changePassword);
-    passwordInput.addEventListener("input", btnColor);
-    newpasswordInput.addEventListener("input", btnColor);
-    passwordInput.addEventListener("input", validatePassword);
-    newpasswordInput.addEventListener("input", checkPassword);
-    passwordInput.addEventListener("input", checkPassword);
-    newpasswordInput.addEventListener("input", checkPassword);
+    if (nextBtn) {
+        nextBtn.addEventListener("click", changePassword);
+    }
 
-    loginBtn.addEventListener("click", redirectToLogin);
-    signupBtn.addEventListener("click", redirectToSignup);
+    const nextForm = document.getElementById("nextform");
+    if (nextForm) {
+        nextForm.addEventListener("submit", changePassword);
+    }
 
-    btnColor();
-    validatePassword(); 
+    if (passwordInput) {
+        passwordInput.addEventListener("input", btnColor);
+        passwordInput.addEventListener("input", validatePassword);
+        passwordInput.addEventListener("input", checkPassword);
+    }
+
+    if (newpasswordInput) {
+        newpasswordInput.addEventListener("input", btnColor);
+        newpasswordInput.addEventListener("input", checkPassword);
+    }
+
+    if (loginBtn) {
+        loginBtn.addEventListener("click", redirectToLogin);
+    }
+
+    if (signupBtn) {
+        signupBtn.addEventListener("click", redirectToSignup);
+    }
+
+    getUserId();
 });
 
 function getUserId() {
@@ -144,9 +161,8 @@ function getUserId() {
         .then(response => response.json())
         .then(data => {
             userId = data.id; 
+            validatePassword();
+            btnColor();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error(error));
 }
-
-getUserId();
-
