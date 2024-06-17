@@ -7,56 +7,59 @@ const logo = document.querySelector("h1");
 const post = document.querySelector(".frame-6");
 let id = "";
 const profile = document.querySelector("#profile");
+const allPosts = [];
 
-profile.addEventListener("click", function(){
-    window.location.href(`/profile?id=${id}`);
-})  
+profile.addEventListener("click", function () {
+    window.location.href = `/profile?id=${id}`;
+});
 
-const checkLogin = async () => {
-    try {
-        const response = await fetch("/signin");
-        const data = await response.json();
-
-        if (data.status === "success") {
-            logIn.classList.add("hidden");
-            signUp.classList.add("hidden");
-            posting.classList.remove("hidden");
-            id = data.id;
-            return id;
-        } else {
-            posting.classList.add("hidden");
-        }
-    } catch (error) {
-        console.error(error);
-    }
+const checkLogin = () => {
+    fetch("/api/signin")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text(); 
+        })
+        .then(data => {
+            if (data === "로그인이 성공적으로 완료되었습니다.") {
+                logIn.classList.add("hidden");
+                signUp.classList.add("hidden");
+                posting.classList.remove("hidden");
+            } else {
+                posting.classList.add("hidden");
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
 };
 
 checkLogin();
 
 const searchPosts = (query) => {
     if (!query.trim()) {
-        displayPosts(allPosts); 
+        alert("검색 결과가 없습니다");
         return;
     }
 
     const filteredPosts = allPosts.filter(post => {
-
+        // 게시물 제목이나 내용에 검색어가 포함되어 있는지 확인
         return post.title.toLowerCase().includes(query.toLowerCase()) ||
-               post.content.toLowerCase().includes(query.toLowerCase());
+            post.content.toLowerCase().includes(query.toLowerCase());
     });
 
-    displayPosts(filteredPosts); 
+    displayPosts(filteredPosts);
 };
 
 searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const query = event.target.elements.search.value;
-    searchPosts(query); 
+    searchPosts(query);
 });
 
-
 post.addEventListener('click', () => {
-    window.location.href = `/?id=${123}`;
+    window.location.href = `/posts/?id=${id}`;
 });
 
 posting.addEventListener('click', () => {
@@ -68,21 +71,23 @@ logIn.addEventListener('click', () => {
 });
 
 signUp.addEventListener('click', () => {
-    window.location.href = 'signup';
+    window.location.href = '/users/signup';
 });
 
 const logOut = document.querySelector("#logout");
 
-
-
-
 createPostElement();
 function createPostElement(post) {
+    if (!post) {
+        console.error('Post object is undefined or null.');
+        return;
+    }
+
     const postDiv = document.createElement('div');
     postDiv.classList.add('post');
 
     const titleElement = document.createElement('h2');
-    titleElement.textContent = post.title;
+    titleElement.textContent = post.title; 
     titleElement.classList.add("text-wrapper-6");
 
     const authorElement = document.createElement('p');
@@ -132,6 +137,6 @@ function createPostElement(post) {
     postsContainer.appendChild(postDiv);
 }
 
-logo.addEventListener('click', function(){
-    window.location.href("/");
+logo.addEventListener('click', function () {
+    window.location.href = "/";
 });
