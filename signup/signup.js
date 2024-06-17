@@ -106,7 +106,7 @@ document.getElementById("registrationForm").addEventListener("submit", function 
         password: passwordInput.value
     };
 
-    const signupUrl = "https://localhost:8080/api/signup";
+    const signupUrl = "http://localhost:8080/api/user/signup";
 
     fetch(signupUrl, {
         method: "POST",
@@ -117,15 +117,16 @@ document.getElementById("registrationForm").addEventListener("submit", function 
     })
     .then((response) => {
         if (!response.ok) {
+            if(response.status === 400) throw new Error("이미 존재하는 아이디입니다.");
             throw new Error("Network response was not ok");
         }
         return response.json();
     })
     .then((data) => {
         console.log("회원가입 성공:", data);
-        window.location.href = '/login';
+        window.location.href = '/login/index.html';
     })
     .catch((error) => {
-        console.error("회원가입 에러:", error);
+        alert(error.message);
     });
 });

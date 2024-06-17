@@ -68,7 +68,7 @@ logIn.addEventListener('click', () => {
 });
 
 signUp.addEventListener('click', () => {
-    window.location.href = '/users/signup';
+    window.location.href = 'signup';
 });
 
 const logOut = document.querySelector("#logout");
