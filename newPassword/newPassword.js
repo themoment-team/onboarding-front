@@ -7,7 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const result1 = document.getElementById("result1");
     const result2 = document.getElementById("result2");
     const logo = document.querySelector("h1");
+    const profile = document.querySelector("#profile");
+    let userId = "";
     
+    profile.addEventListener("click", function(){
+        window.location.href(`/profile?id=${userId}`);
+    })  
+
     logo.addEventListener('click', function(){
         window.location.href("/");
     });
@@ -56,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const newpasswordValue = newpasswordInput.value;
         const confirmPasswordValue = passwordInput.value;
 
-        validatePassword(); // 비밀번호 조건 검사를 이 위치로 이동
+        validatePassword(); 
 
         if (newpasswordValue === confirmPasswordValue && newpasswordValue !== "") {
             result2.innerText = '비밀번호가 일치합니다.';
@@ -132,3 +138,15 @@ document.addEventListener("DOMContentLoaded", function () {
     btnColor();
     validatePassword(); 
 });
+
+function getUserId() {
+    fetch("/login")
+        .then(response => response.json())
+        .then(data => {
+            userId = data.id; 
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+getUserId();
+
