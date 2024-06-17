@@ -6,6 +6,11 @@ const postList = document.querySelector("#post");
 const logo = document.querySelector("h1");
 const post = document.querySelector(".frame-6");
 let id = "";
+const profile = document.querySelector("#profile");
+
+profile.addEventListener("click", function(){
+    window.location.href(`/profile?id=${id}`);
+})  
 
 const checkLogin = async () => {
     try {

@@ -6,6 +6,12 @@ const titleLength = document.querySelector("#titlelength");
 const detailLength = document.querySelector("#detaillength");
 const postForm = document.querySelector("#postForm"); 
 const logo = document.querySelector("h1");
+const profile = document.querySelector("#profile");
+let userId = "";
+
+profile.addEventListener("click", function(){
+    window.location.href(`/profile?id=${userId}`);
+})  
 
 logo.addEventListener('click', function(){
     window.location.href("/");
@@ -56,3 +62,14 @@ postForm.addEventListener('submit', function(event){
         console.error(error);
     })
 })
+
+function getUserId() {
+    fetch("/login")
+        .then(response => response.json())
+        .then(data => {
+            userId = data.id; 
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+getUserId();
