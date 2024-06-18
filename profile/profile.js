@@ -9,14 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let userId = null;
     let username = null;
 
-    // writing 요소가 존재하는지 확인 후 이벤트 리스너 등록
     if (writing) {
         writing.addEventListener('click', function() {
             window.location.href = "/posts/write";
         });
     }
 
-    // logo 요소가 존재하는지 확인 후 이벤트 리스너 등록
     if (logo) {
         logo.addEventListener('click', function() {
             window.location.href = "/";

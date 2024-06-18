@@ -76,6 +76,8 @@ function checkLogin() {
     .catch(error => {
         console.error('Error fetching data:', error);
         posting.classList.add("hidden");
+        if (logIn) logIn.classList.remove("hidden");
+        if (signUp) signUp.classList.remove("hidden");
     });
 
 }
