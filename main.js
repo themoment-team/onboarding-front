@@ -60,10 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkLogin() {
-    fetch(`${serverUrl}api/user`, { credentials: 'include' })
+    fetch(`${serverUrl}api/user`)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
         }
         return response.text();
     })
