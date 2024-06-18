@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 로그인 상태를 확인하고 UI 업데이트를 위한 함수
     const checkLogin = () => {
         fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user")
             .then(response => {
@@ -33,29 +32,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json(); 
             })
             .then(data => {
-                if (data.id !== "") {
-                    // 로그인 상태일 때 UI 업데이트
                     userId = data.id;
                     username = data.nickname;
                     logInButton.classList.add("hidden");
                     signUpButton.classList.add("hidden");
                     postingButton.classList.remove("hidden");
                     name.innerText = username;
-                    loadPosts(); // 로그인 후 포스트 로드
-                } else {
-                    // 로그인 상태가 아닐 때 UI 업데이트
-                    postingButton.classList.add("hidden");
+                    loadPosts(); 
                 }
-            })
+            )
             .catch(error => {
                 console.error('Error fetching data:', error);
-                alert('로그인 상태를 확인할 수 없습니다. 네트워크를 확인하세요.');
+                postingButton.classList.add("hidden");
             });
     };
     
-    checkLogin(); // 페이지 로드 시 로그인 상태 확인 함수 실행
+    checkLogin(); 
 
-    // 포스트 로드 함수
+
     function loadPosts() {
         fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/posts")
             .then(response => {
@@ -67,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(posts => {
                 posts.forEach(post => {
                     if (post.author === username) {
-                        createPostElement(post); // 사용자의 포스트 생성
+                        createPostElement(post); 
                     }
                 });
             })
@@ -76,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // 포스트 생성 함수
     function createPostElement(post) {
         const postsContainer = document.querySelector('.frame-6');
         const postDiv = document.createElement('div');
@@ -132,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         postsContainer.appendChild(postDiv);
     }
 
-    // 로그아웃 처리
+
     logOut.addEventListener('click', function(event) {
         event.preventDefault();
 
@@ -160,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 회원 탈퇴 처리
     if (signOff) {
         signOff.addEventListener('click', function(event) {
             event.preventDefault();
