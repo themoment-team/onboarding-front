@@ -63,21 +63,19 @@ function checkLogin() {
     fetch(`${serverUrl}api/user`)
     .then(response => {
         if (!response.ok) {
+            throw new error("network!");
         }
         return response.text();
     })
     .then(data => {
-        if (data.id !== "") {
             if (logIn) logIn.classList.add("hidden");
             if (signUp) signUp.classList.add("hidden");
             if (posting) posting.classList.remove("hidden");
-        } else {
-            if (posting) posting.classList.add("hidden");
         }
-    })
+    )
     .catch(error => {
         console.error('Error fetching data:', error);
-        alert('로그인 상태를 확인할 수 없습니다.');
+        posting.classList.add("hidden");
     });
 
 }
