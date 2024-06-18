@@ -42,7 +42,7 @@ function logIn(event) {
         .then((response) => response.json())
         .then((data) => {
             if (data.message === "로그인이 성공적으로 완료되었습니다.") {
-                window.location.href = `/main/`;
+                window.location.href = `/`;
             } else {
                 console.error(data.message);
                 error.innerText = "아이디와 비밀번호를 다시 한 번 확인해주세요";
