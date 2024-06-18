@@ -29,13 +29,13 @@ function logIn(event) {
     const id = idInput.value;
     const password = passwordInput.value;
 
-    fetch("/api/user/login", {
+    fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            id: id,
+            name: id,
             password: password,
         }),
     })
@@ -54,18 +54,16 @@ function logIn(event) {
         .catch((error) => console.error(error));
 }
 
-
-
 loginBtn.addEventListener("click", function () {
     window.location.href = "/login";
 });
 
 signupBtn.addEventListener("click", function () {
-    window.location.href = "/signup";
+    window.location.href = "users/signup";
 });
-nextBtn.addEventListener("click", logIn);
-logInForm.addEventListener("submit", logIn)
 
+nextBtn.addEventListener("click", logIn);
+logInForm.addEventListener("submit", logIn);
 
 logo.addEventListener('click', function () {
     window.location.href = "/";

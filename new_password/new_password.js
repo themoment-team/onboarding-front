@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const newpasswordValue = newpasswordInput.value;
 
-        fetch(`/api/user/${userId}`, {
+        fetch(`https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -157,10 +157,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getUserId() {
-    fetch("/login")
+    fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user")
         .then(response => response.json())
         .then(data => {
-            userId = data.id; 
+            userId = data.id;  
             validatePassword();
             btnColor();
         })
