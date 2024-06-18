@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then((data) => {
             console.log("로그인 성공:", data);
-            window.location.href = "/main";
+            window.location.href = "/";
         })
         .catch((error) => {
             console.error("로그인 에러:", error);
