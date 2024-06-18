@@ -25,6 +25,7 @@ body {
   font-weight: 600;
   text-decoration: none;
   color: black;
+  cursor: pointer;
 }
 
 .nav-buttons {
