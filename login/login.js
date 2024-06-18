@@ -1,4 +1,3 @@
-// Add this to your existing login.js
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     const usernameInput = document.getElementById('username');
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then((data) => {
             console.log("로그인 성공:", data);
-            window.location.href = "/";
+            window.location.href = "/main";
         })
         .catch((error) => {
             console.error("로그인 에러:", error);

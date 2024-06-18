@@ -232,11 +232,11 @@ document.getElementById('comment-form').addEventListener('submit', function(even
 
 const commentText = document.getElementById("comment-text");
 const charCount = document.getElementById("char-count");
-const initialHeight = commentText.clientHeight;
+const initialHeight = 50;
 const maxChars = 100;
 
 function autoResize() {
-    commentText.style.height = "50px";
+    commentText.style.height = `${initialHeight}px`;
     commentText.style.height = commentText.scrollHeight + "px";
 }
 
