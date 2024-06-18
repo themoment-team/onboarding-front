@@ -106,7 +106,7 @@ document.getElementById("registrationForm").addEventListener("submit", function 
         password: passwordInput.value
     };
 
-    const signupUrl = "http://localhost:8080/api/user/signup";
+    const signupUrl = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/signup";
 
     fetch(signupUrl, {
         method: "POST",
