@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
 
-    if (postForm) {
+
         postForm.addEventListener('submit', (event) => {
             event.preventDefault();
 
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error(error);
             });
         });
-    }
+    
 
     function getUserId() {
         fetch(`${serverURL}api/user`,{credentials:"include"})
