@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 로그인 상태를 확인하고 UI 업데이트를 위한 함수
     const checkLogin = () => {
-        fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user")
+        fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user", {
+            credentials:"include"})
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

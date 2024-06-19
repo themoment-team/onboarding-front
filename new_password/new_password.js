@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify({ 
                 password: newpasswordValue
             }),
+            credentials:"include",
         })
         .then(response => {
             if (response.ok) {
