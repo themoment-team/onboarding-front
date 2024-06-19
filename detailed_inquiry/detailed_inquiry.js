@@ -1,9 +1,10 @@
-const hostURL = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app";
+const hostURL =
+    "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app";
 const pageTitle = document.querySelector(".page-title");
 const article = document.querySelector(".article");
-const viewCount = document.querySelector("#view-count")
+const viewCount = document.querySelector("#view-count");
 const likes = document.querySelector("#heart-count");
-const commentList = document.getElementById('comment-list');
+const commentList = document.getElementById("comment-list");
 const details = document.querySelector("#details");
 const writing = document.querySelector("#writing");
 const myProfile = document.querySelector("#myProfile");
@@ -11,23 +12,24 @@ const heartBtn = document.querySelector("#heart-button");
 
 let isLogined = false;
 let user;
-const fetchUserUrl = `${hostURL}/api/user/`;
-    fetch(fetchUserUrl,{credentials:"include",}).then(response => {
-        if(response.ok){
-            response.json().then((userData)=>{
-                user = userData;
-                isLogined = true;
-            });
-        }else {
-            
-        }
+const fetchUserUrl = `${hostURL}/api/user`;
+fetch(fetchUserUrl, { credentials: "include" }).then((response) => {
+    if (response.ok) {
+        response.json().then((userData) => {
+            user = userData;
+            isLogined = true;
+        });
+    } else {
+        response.text().then((text) => console.log(text));
+    }
 });
-
-
 
 const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
-if(id === null) {pageTitle.textContent = "게시글 정보가 없습니다."; article.textContent="정보 없음";}
+if (id === null) {
+    pageTitle.textContent = "게시글 정보가 없습니다.";
+    article.textContent = "정보 없음";
+}
 
 console.log(id);
 
@@ -36,7 +38,7 @@ let post = {};
 const fetchPostsUrl = `${hostURL}/api/post/${id}`;
 const fetchCommentsUrl = `${hostURL}/api/post/${id}/comments`;
 // fetch를 사용한 게시글 요청
-fetch(fetchPostsUrl,{credentials:"include",})
+fetch(fetchPostsUrl, { credentials: "include" })
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -45,11 +47,13 @@ fetch(fetchPostsUrl,{credentials:"include",})
     })
     .then((_post) => {
         post = _post;
-        if(!isLogined || user.id !== post.id){
+        if (!isLogined || user.name !== post.author) {
             details.outerHTML = "";
             writing.outerHTML = "";
+        }
+        if (!isLogined) {
             myProfile.outerHTML = "";
-            heartBtn.setAttribute('disabled','true');
+            heartBtn.setAttribute("disabled", "true");
         }
         pageTitle.textContent = post.title;
         article.textContent = post.content;
@@ -59,10 +63,10 @@ fetch(fetchPostsUrl,{credentials:"include",})
         console.log("게시글:", post);
     })
     .catch((error) => {
-        console.error("게시글 요청 에러:", error,fetchPostsUrl);
+        console.error("게시글 요청 에러:", error, fetchPostsUrl);
     });
 
-fetch(fetchCommentsUrl,{credentials:"include",})
+fetch(fetchCommentsUrl, { credentials: "include" })
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -70,8 +74,8 @@ fetch(fetchCommentsUrl,{credentials:"include",})
         return response.json();
     })
     .then((comments) => {
-        comments.forEach((comment)=>{
-            const template = document.createElement('template');
+        comments.forEach((comment) => {
+            const template = document.createElement("template");
             template.innerHTML = `<div class="comment">
                     <svg class="profile" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                         <g clip-path="url(#clip0_2202_235)">
@@ -87,9 +91,7 @@ fetch(fetchCommentsUrl,{credentials:"include",})
                     <strong class="commentAuthor">${comment.author}</strong>
                     <p class="commentContent">${comment.content}</p>
                 </div>`;
-            commentList.appendChild(
-                template.content.firstChild
-            )
+            commentList.appendChild(template.content.firstChild);
         });
         console.log("게시글:", comments);
     })
@@ -133,7 +135,7 @@ editButton.addEventListener("click", function () {
                 title: post.title,
                 content: post.content,
             },
-            credentials:"include",
+            credentials: "include",
         }).then((response) => {
             if (!response.ok) alert("게시글 수정에 실패했습니다.");
         });
@@ -146,7 +148,6 @@ editButton.addEventListener("click", function () {
 });
 
 pageTitle.addEventListener("input", () => {
-
     if (pageTitle.textContent.length > 15) {
         pageTitle.textContent = pageTitle.textContent.substring(0, 15);
         placeCaretAtEnd(pageTitle);
@@ -182,8 +183,10 @@ document.addEventListener("click", function (event) {
 });
 function placeCaretAtEnd(el) {
     el.focus();
-    if (typeof window.getSelection != "undefined"
-        && typeof document.createRange != "undefined") {
+    if (
+        typeof window.getSelection != "undefined" &&
+        typeof document.createRange != "undefined"
+    ) {
         let range = document.createRange();
         range.selectNodeContents(el);
         range.collapse(false);
@@ -198,16 +201,18 @@ function placeCaretAtEnd(el) {
     }
 }
 
-document.getElementById('comment-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+document
+    .getElementById("comment-form")
+    .addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    let commentText = document.getElementById('comment-text').value;
-    if (commentText.trim() !== "") {
-        commentText = commentText.replaceAll("\n","<br>");
-        const commentList = document.getElementById('comment-list');
-        const newComment = document.createElement('div');
-        newComment.classList.add('comment');
-        newComment.innerHTML = `
+        let commentText = document.getElementById("comment-text").value;
+        if (commentText.trim() !== "") {
+            commentText = commentText.replaceAll("\n", "<br>");
+            const commentList = document.getElementById("comment-list");
+            const newComment = document.createElement("div");
+            newComment.classList.add("comment");
+            newComment.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                             <g clip-path="url(#clip0_2202_235)">
                                 <rect y="0.5" width="24" height="24" rx="12" fill="#CBCCCE" />
@@ -221,27 +226,27 @@ document.getElementById('comment-form').addEventListener('submit', function(even
                         </svg>
             <strong class="commentAuthor">MY</strong>
             <p>${commentText}</p>`;
-        commentList.appendChild(newComment);
+            commentList.appendChild(newComment);
 
-        document.getElementById('comment-text').value = "";
+            document.getElementById("comment-text").value = "";
 
-        const textarea = document.getElementById('comment-text');
-        textarea.style.height = "50px";
-        const charCount = document.getElementById('char-count');
-        charCount.style.display = 'none';
+            const textarea = document.getElementById("comment-text");
+            textarea.style.height = "50px";
+            const charCount = document.getElementById("char-count");
+            charCount.style.display = "none";
 
-        fetch(fetchCommentsUrl, {
-            method: "POST",
-            body: {
-                content: commentText,
-                author: user.nickname,
-            },
-            credentials: "include",
-        }).then((response) => {
-            if (!response.ok) alert("댓글 등록에 실패했습니다.");
-        });
-    }
-});
+            fetch(fetchCommentsUrl, {
+                method: "POST",
+                body: {
+                    content: commentText,
+                    author: user.nickname,
+                },
+                credentials: "include",
+            }).then((response) => {
+                if (!response.ok) alert("댓글 등록에 실패했습니다.");
+            });
+        }
+    });
 
 const commentTextElement = document.getElementById("comment-text");
 const maxChars = 100;
@@ -258,16 +263,17 @@ function handleExcessCharacters() {
 
     if (commentText.length > 100) {
         commentTextElement.value = commentText.slice(0, 100);
-    } 
+    }
 }
-
-
 
 function updateCharCount() {
     const remaining = 100 - commentTextElement.value.length;
     const currentHeight = commentTextElement.clientHeight;
 
-    if (currentHeight > initialHeight || commentTextElement.value.includes("\n")) {
+    if (
+        currentHeight > initialHeight ||
+        commentTextElement.value.includes("\n")
+    ) {
         charCount.textContent = `${remaining}`;
         charCount.style.display = "block";
     } else {
@@ -299,16 +305,50 @@ autoResize();
 updateCharCount();
 
 let heartClicked = false;
-document.getElementById('heart-button').addEventListener('click', function() {
-    const heartCount = document.getElementById('heart-count');
+document.getElementById("heart-button").addEventListener("click", function () {
+    const heartCount = document.getElementById("heart-count");
     const currentCount = parseInt(heartCount.textContent);
 
     if (!heartClicked) {
         heartCount.textContent = currentCount + 1;
-        this.classList.add('active');
+        this.classList.add("active");
+
+        // 서버로 좋아요 증가 요청 (PATCH)
+        fetch(`${hostURL}/api/post/${id}/like`, {
+            method: "PATCH", // PATCH 요청으로 변경
+            credentials: "include",
+            body: JSON.stringify({ action: "like" }), // 필요한 경우 요청 본문에 추가 데이터 전송
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((response) => {
+            if (!response.ok) {
+                // 실패 시 처리
+                console.error("좋아요 증가 실패");
+                heartCount.textContent = currentCount; // 원래 수로 되돌림
+                this.classList.remove("active"); // 버튼 상태도 원래대로
+            }
+        });
     } else {
         heartCount.textContent = currentCount - 1;
-        this.classList.remove('active');
+        this.classList.remove("active");
+
+        // 서버로 좋아요 감소 요청 (PATCH)
+        fetch(`${hostURL}/api/post/${id}/like`, {
+            method: "PATCH", // PATCH 요청으로 변경
+            credentials: "include",
+            body: JSON.stringify({ action: "unlike" }), // 필요한 경우 요청 본문에 추가 데이터 전송
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((response) => {
+            if (!response.ok) {
+                // 실패 시 처리
+                console.error("좋아요 감소 실패");
+                heartCount.textContent = currentCount; // 원래 수로 되돌림
+                this.classList.add("active"); // 버튼 상태도 원래대로
+            }
+        });
     }
     heartClicked = !heartClicked;
 });
@@ -316,6 +356,6 @@ document.getElementById('heart-button').addEventListener('click', function() {
 // 이전화면으로 이동
 const previous = document.querySelector("#prvBtn");
 
-previous.addEventListener('click', function(){
+previous.addEventListener("click", function () {
     history.back();
 });
