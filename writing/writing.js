@@ -10,17 +10,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const serverURL = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/"; 
 
-    if (profile) {
-        profile.addEventListener("click", () => {
-            window.location.href = `$/profile?id=${userId}`;
-        });
-    }
+    // if (profile) {
+    //     profile.addEventListener("click", () => {
+    //         window.location.href = `$/profile?id=${userId}`;
+    //     });
+    // }
 
-    if (logo) {
-        logo.addEventListener('click', () => {
-            window.location.href = `/`;
-        });
-    }
+    // if (logo) {
+    //     logo.addEventListener('click', () => {
+    //         window.location.href = `/`;
+    //     });
+    // }
+
+    profile.addEventListener("click", () => {
+    window.location.href = `$/profile?id=${userId}`;
+    });
+
+    logo.addEventListener('click', () => {
+        window.location.href = `/`;
+    });
 
     function btnColor() {
         if (title && detail) {
