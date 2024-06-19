@@ -1,37 +1,50 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const passwordInput = document.getElementById("password");
-  const newpasswordInput = document.getElementById("newpassword");
-  const nextBtn = document.getElementById("next");
-  const loginBtn = document.getElementById("login");
-  const signupBtn = document.getElementById("signup");
-  const result1 = document.getElementById("result1");
-  const result2 = document.getElementById("result2");
-  const logo = document.querySelector("h1");
-  const profile = document.querySelector("#profile");
+document.addEventListener("DOMContentLoaded", () => {
+  const elements = {
+    passwordInput: document.getElementById("password"),
+    newpasswordInput: document.getElementById("newpassword"),
+    nextBtn: document.getElementById("next"),
+    loginBtn: document.getElementById("login"),
+    signupBtn: document.getElementById("signup"),
+    result1: document.getElementById("result1"),
+    result2: document.getElementById("result2"),
+    logo: document.querySelector("h1"),
+    profile: document.querySelector("#profile"),
+    nextForm: document.getElementById("nextform"),
+  };
+
   let userId = "";
 
-  profile.addEventListener("click", function () {
-    window.location.href = `/profile?id=${userId}`;
-  });
-
-  logo.addEventListener("click", function () {
-    window.location.href = "/";
-  });
-
-  function btnColor() {
-    const passwordValue = passwordInput.value;
-    const newpasswordValue = newpasswordInput.value;
-
-    if (passwordValue !== "" && newpasswordValue !== "") {
-      nextBtn.style.color = "white";
-      nextBtn.style.background = "var(--Main, #3269F6)";
-    } else {
-      nextBtn.style.color = "white";
-      nextBtn.style.background = "var(--gray1, #D1D1D1)";
+  const fetchUserId = async () => {
+    try {
+      const response = await fetch(
+        "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user",
+        {
+          credentials: "include",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      userId = data.id;
+      validatePassword();
+      updateNextBtnColor();
+    } catch (error) {
+      console.error("Failed to fetch user ID:", error);
     }
-  }
+  };
 
-  function passwordCheck(password) {
+  const updateNextBtnColor = () => {
+    const { passwordInput, newpasswordInput, nextBtn } = elements;
+    const isEnabled =
+      passwordInput.value !== "" && newpasswordInput.value !== "";
+    nextBtn.style.color = "white";
+    nextBtn.style.background = isEnabled
+      ? "var(--Main, #3269F6)"
+      : "var(--gray1, #D1D1D1)";
+  };
+
+  const isPasswordValid = (password) => {
     const hasLetter = /[A-Za-z]/.test(password);
     const hasDigit = /\d/.test(password);
     const hasSpecialChar = /[@$!%*?&]/.test(password);
@@ -43,12 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
         (hasLetter && hasSpecialChar) ||
         (hasDigit && hasSpecialChar))
     );
-  }
+  };
 
-  function validatePassword() {
+  const validatePassword = () => {
+    const { passwordInput, result1 } = elements;
     const passwordValue = passwordInput.value.trim();
 
-    if (!passwordCheck(passwordValue)) {
+    if (!isPasswordValid(passwordValue)) {
       result1.innerText =
         "영문, 숫자, 특수문자 중 2개 이상 포함한 8글자 이상의 조합으로 적어주세요";
       result1.style.color = "#DF454A";
@@ -58,9 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
       result1.style.color = "black";
       return true;
     }
-  }
+  };
 
-  function checkPassword() {
+  const checkPasswordMatch = () => {
+    const { passwordInput, newpasswordInput, result2 } = elements;
     const newpasswordValue = newpasswordInput.value;
     const confirmPasswordValue = passwordInput.value;
 
@@ -82,81 +97,79 @@ document.addEventListener("DOMContentLoaded", function () {
       passwordInput.style.borderColor = "";
       return false;
     }
-  }
+  };
 
-  function changePassword(event) {
+  const changePassword = async (event) => {
     event.preventDefault();
 
-    const isPasswordValid = validatePassword();
-    const isPasswordMatch = checkPassword();
-
-    if (!isPasswordValid || !isPasswordMatch) {
+    if (!validatePassword() || !checkPasswordMatch()) {
       return;
     }
 
+    const { newpasswordInput } = elements;
     const newpasswordValue = newpasswordInput.value;
 
-    fetch(
-      `https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/${userId}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          password: newpasswordValue,
-        }),
-        credentials: "include",
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          window.location.href = "/login";
-        } else {
-          return response.json().then((error) => {
-            throw new Error(error.message);
-          });
+    try {
+      const response = await fetch(
+        `https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/${userId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password: newpasswordValue }),
+          credentials: "include",
         }
-      })
-      .catch((error) => console.error(error));
-  }
+      );
 
-  function redirectToLogin() {
-    window.location.href = "/login/";
-  }
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
 
-  function redirectToSignup() {
-    window.location.href = "/signup";
-  }
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Failed to change password:", error);
+    }
+  };
 
-  nextBtn.addEventListener("click", changePassword);
+  const addEventListeners = () => {
+    const {
+      passwordInput,
+      newpasswordInput,
+      nextBtn,
+      nextForm,
+      loginBtn,
+      signupBtn,
+      profile,
+      logo,
+    } = elements;
 
-  const nextForm = document.getElementById("nextform");
-  nextForm.addEventListener("submit", changePassword);
-
-  passwordInput.addEventListener("input", btnColor);
-  passwordInput.addEventListener("input", validatePassword);
-  passwordInput.addEventListener("input", checkPassword);
-
-  newpasswordInput.addEventListener("input", btnColor);
-  newpasswordInput.addEventListener("input", checkPassword);
-
-  loginBtn.addEventListener("click", redirectToLogin);
-
-  signupBtn.addEventListener("click", redirectToSignup);
-
-  getUserId();
-});
-
-function getUserId() {
-  fetch(
-    "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user"
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      userId = data.id;
+    const onInput = () => {
+      updateNextBtnColor();
       validatePassword();
-      btnColor();
-    })
-    .catch((error) => console.error(error));
-}
+      checkPasswordMatch();
+    };
+
+    passwordInput.addEventListener("input", onInput);
+    newpasswordInput.addEventListener("input", onInput);
+    nextBtn.addEventListener("click", changePassword);
+    nextForm.addEventListener("submit", changePassword);
+    loginBtn.addEventListener(
+      "click",
+      () => (window.location.href = "/login/")
+    );
+    signupBtn.addEventListener(
+      "click",
+      () => (window.location.href = "/signup")
+    );
+    profile.addEventListener(
+      "click",
+      () => (window.location.href = `/profile?id=${userId}`)
+    );
+    logo.addEventListener("click", () => (window.location.href = "/"));
+  };
+
+  fetchUserId();
+  addEventListeners();
+});
