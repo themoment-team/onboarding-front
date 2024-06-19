@@ -10,17 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const serverURL = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/"; 
 
-    // if (profile) {
-    //     profile.addEventListener("click", () => {
-    //         window.location.href = `$/profile?id=${userId}`;
-    //     });
-    // }
+        profile.addEventListener("click", () => {
+            window.location.href = `$/profile?id=${userId}`;
+        });
+    
 
-    // if (logo) {
-    //     logo.addEventListener('click', () => {
-    //         window.location.href = `/`;
-    //     });
-    // }
+
+        logo.addEventListener('click', () => {
+            window.location.href = `/`;
+        });
+    
+
 
     profile.addEventListener("click", () => {
     window.location.href = `$/profile?id=${userId}`;
@@ -41,37 +41,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
-    if (title) {
         title.addEventListener('input', btnColor);
-    }
-
-    if (detail) {
+    
         detail.addEventListener('input', btnColor);
-    }
+    
 
-    if (previousBtn) {
+
         previousBtn.addEventListener('click', () => {
             history.back();
         });
-    }
+    
 
-    if (postForm) {
-        postForm.addEventListener('submit', (event) => {
+
+        postBtn.addEventListener('click', (event) => {
             event.preventDefault();
 
             const data = {
-                title: title ? title.value : "",
-                content: detail ? detail.value : ""
+                title: title.value,
+                content: detail.value
             };
 
             fetch(`${serverURL}api/post/write`, {
-                method: 'POST',
+                method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
-                credentials:"include",
             })
             .then(response => {
                 if (!response.ok) {
@@ -83,16 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error(error);
             });
         });
-    }
+    
 
     function getUserId() {
-        fetch(`${serverURL}api/user`,{credentials:"include"})
+        fetch(`${serverURL}api/user`)
             .then(response => response.json())
             .then(data => {
                 userId = data.id;
             })
             .catch(error => console.error(error));
     }
-
+11
     getUserId();
 });
