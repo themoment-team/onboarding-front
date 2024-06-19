@@ -118,11 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function redirectToLogin() {
-        window.location.href = "/login";
+        window.location.href = "/login/";
     }
 
     function redirectToSignup() {
-        window.location.href = "/users/signup";
+        window.location.href = "/signup";
     }
 
     if (nextBtn) {
