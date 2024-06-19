@@ -12,7 +12,7 @@ const heartBtn = document.querySelector("#heart-button");
 let isLogined = false;
 let user;
 const fetchUserUrl = `http://${hostURL}/api/user/`;
-fetch(fetchUserUrl).then(response => {
+fetch(fetchUserUrl,{credentials:"include",}).then(response => {
     if(response.ok){
         response.json().then((userData)=>{
             user = userData;
@@ -32,7 +32,7 @@ let post = {};
 const fetchPostsUrl = `http://${hostURL}/api/post/${id}`;
 const fetchCommentsUrl = `http://${hostURL}/api/post/${id}/comments`;
 // fetch를 사용한 게시글 요청
-fetch(fetchPostsUrl,{credentials:"include"})
+fetch(fetchPostsUrl,{credentials:"include",})
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -58,7 +58,7 @@ fetch(fetchPostsUrl,{credentials:"include"})
         console.error("게시글 요청 에러:", error,fetchPostsUrl);
     });
 
-fetch(fetchCommentsUrl)
+fetch(fetchCommentsUrl,{credentials:"include",})
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -123,11 +123,15 @@ editButton.addEventListener("click", function () {
         editButton.textContent = "수정";
         post.title = pageTitle.textContent;
         post.content = article.textContent;
-        fetch(fetchPostsUrl,{method:"PATCH",body:{
-            title:post.title,
-            content:post.content
-        }}).then(response=>{
-            if(!response.ok) alert("게시글 수정에 실패했습니다.");
+        fetch(fetchPostsUrl, {
+            method: "PATCH",
+            body: {
+                title: post.title,
+                content: post.content,
+            },
+            credentials:"include",
+        }).then((response) => {
+            if (!response.ok) alert("게시글 수정에 실패했습니다.");
         });
     } else {
         pageTitle.contentEditable = "true";
@@ -154,11 +158,12 @@ article.addEventListener("input", () => {
 
 deleteButton.addEventListener("click", function () {
     if (confirm("정말로 삭제하시겠습니까?")) {
-        
-        fetch(fetchPostsUrl,{method:"DELETE"}).then(response=>{
-            if(!response.ok) alert("게시물 삭제 실패");
-            else alert("게시물이 삭제되었습니다.");
-        });
+        fetch(fetchPostsUrl, { method: "DELETE", credentials: "include" }).then(
+            (response) => {
+                if (!response.ok) alert("게시물 삭제 실패");
+                else alert("게시물이 삭제되었습니다.");
+            }
+        );
     }
     dropdown.style.display = "none";
 });
@@ -221,39 +226,44 @@ document.getElementById('comment-form').addEventListener('submit', function(even
         const charCount = document.getElementById('char-count');
         charCount.style.display = 'none';
 
-        fetch(fetchCommentsUrl,{method:"POST",body:{
-            content:commentText,
-            author:user.nickname,
-            credentials:"include"
-        }}).then(response =>{
-            if(!response.ok) alert("댓글 등록에 실패했습니다.");
+        fetch(fetchCommentsUrl, {
+            method: "POST",
+            body: {
+                content: commentText,
+                author: user.nickname,
+            },
+            credentials: "include",
+        }).then((response) => {
+            if (!response.ok) alert("댓글 등록에 실패했습니다.");
         });
     }
 });
 
-const commentText = document.getElementById("comment-text");
+const commentTextElement = document.getElementById("comment-text");
+const maxChars = 100;
 const charCount = document.getElementById("char-count");
 const initialHeight = 50;
-const maxChars = 100;
 
 function autoResize() {
-    commentText.style.height = `${initialHeight}px`;
-    commentText.style.height = commentText.scrollHeight + "px";
+    commentTextElement.style.height = `${initialHeight}px`;
+    commentTextElement.style.height = commentTextElement.scrollHeight + "px";
 }
 
 function handleExcessCharacters() {
-    const commentText = commentText.value;
+    const commentText = commentTextElement.value;
 
     if (commentText.length > 100) {
-        commentText.value = commentText.slice(0, 100);
-    }
+        commentTextElement.value = commentText.slice(0, 100);
+    } 
 }
 
-function updateCharCount() {
-    const remaining = 100 - commentText.value.length;
-    const currentHeight = commentText.clientHeight;
 
-    if (currentHeight > initialHeight || commentText.value.includes("\n")) {
+
+function updateCharCount() {
+    const remaining = 100 - commentTextElement.value.length;
+    const currentHeight = commentTextElement.clientHeight;
+
+    if (currentHeight > initialHeight || commentTextElement.value.includes("\n")) {
         charCount.textContent = `${remaining}`;
         charCount.style.display = "block";
     } else {
@@ -261,20 +271,20 @@ function updateCharCount() {
     }
 }
 
-commentText.addEventListener("input", autoResize);
-commentText.addEventListener("input", handleExcessCharacters);
-commentText.addEventListener("input", updateCharCount);
-commentText.addEventListener("input", function () {
-    const textLength = commentText.value.length;
+commentTextElement.addEventListener("input", autoResize);
+commentTextElement.addEventListener("input", handleExcessCharacters);
+commentTextElement.addEventListener("input", updateCharCount);
+commentTextElement.addEventListener("input", function () {
+    const textLength = commentTextElement.value.length;
     charCount.textContent = maxChars - textLength;
 
     if (textLength > maxChars) {
-        commentText.classList.add("excess");
+        commentTextElement.classList.add("excess");
     } else {
-        commentText.classList.remove("excess");
+        commentTextElement.classList.remove("excess");
     }
 
-    if (commentText.scrollHeight > initialHeight) {
+    if (commentTextElement.scrollHeight > initialHeight) {
         charCount.style.display = "block";
     } else {
         charCount.style.display = "none";
