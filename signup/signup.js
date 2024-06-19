@@ -114,6 +114,7 @@ document.getElementById("registrationForm").addEventListener("submit", function 
             "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
+        // credentials:"include",
     })
     .then((response) => {
         if (!response.ok) {

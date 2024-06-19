@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                credentials:"include",
             })
             .then(response => {
                 if (!response.ok) {
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getUserId() {
-        fetch(`${serverURL}api/user`)
+        fetch(`${serverURL}api/user`,{credentials:"include"})
             .then(response => response.json())
             .then(data => {
                 userId = data.id;

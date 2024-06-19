@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(loginData),
+            credentials:"include"
         })
         .then((response) => {
             if (!response.ok) {

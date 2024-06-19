@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const checkLogin = () => {
-        fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user")
+        fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user", {
+            credentials:"include"})
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

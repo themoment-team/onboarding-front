@@ -223,7 +223,8 @@ document.getElementById('comment-form').addEventListener('submit', function(even
 
         fetch(fetchCommentsUrl,{method:"POST",body:{
             content:commentText,
-            author:user.nickname
+            author:user.nickname,
+            credentials:"include"
         }}).then(response =>{
             if(!response.ok) alert("댓글 등록에 실패했습니다.");
         });

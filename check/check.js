@@ -38,6 +38,7 @@ function logIn(event) {
             name: id,
             password: password,
         }),
+        credentials:"include",
     })
         .then((response) => response.json())
         .then((data) => {
