@@ -21,6 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
 
+
+    profile.addEventListener("click", () => {
+    window.location.href = `$/profile?id=${userId}`;
+    });
+
+    logo.addEventListener('click', () => {
+        window.location.href = `/`;
+    });
+
     function btnColor() {
         if (title && detail) {
             if (title.value.trim() !== "" && detail.value.trim() !== "") {
@@ -57,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
+                credentials:"include",
             })
             .then(response => {
                 if (!response.ok) {
@@ -72,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getUserId() {
-        fetch(`${serverURL}api/user`)
+        fetch(`${serverURL}api/user`,{credentials:"include"})
             .then(response => response.json())
             .then(data => {
                 userId = data.id;

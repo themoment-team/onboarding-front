@@ -1,4 +1,4 @@
-const hostURL = document.location.host;
+const hostURL = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app";
 const pageTitle = document.querySelector(".page-title");
 const article = document.querySelector(".article");
 const viewCount = document.querySelector("#view-count")
@@ -223,7 +223,8 @@ document.getElementById('comment-form').addEventListener('submit', function(even
 
         fetch(fetchCommentsUrl,{method:"POST",body:{
             content:commentText,
-            author:user.nickname
+            author:user.nickname,
+            credentials:"include"
         }}).then(response =>{
             if(!response.ok) alert("댓글 등록에 실패했습니다.");
         });
@@ -232,11 +233,11 @@ document.getElementById('comment-form').addEventListener('submit', function(even
 
 const commentText = document.getElementById("comment-text");
 const charCount = document.getElementById("char-count");
-const initialHeight = commentText.clientHeight;
+const initialHeight = 50;
 const maxChars = 100;
 
 function autoResize() {
-    commentText.style.height = "50px";
+    commentText.style.height = `${initialHeight}px`;
     commentText.style.height = commentText.scrollHeight + "px";
 }
 

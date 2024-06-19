@@ -1,4 +1,3 @@
-// Add this to your existing login.js
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     const usernameInput = document.getElementById('username');
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             password: passwordInput.value,
         };
 
-        const loginUrl = "http://localhost:8080/api/user/login";
+        const loginUrl = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/login";
 
         fetch(loginUrl, {
             method: "POST",
@@ -51,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(loginData),
+            credentials:"include"
         })
         .then((response) => {
             if (!response.ok) {
@@ -69,6 +69,3 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
     });
 });
-
-
-
