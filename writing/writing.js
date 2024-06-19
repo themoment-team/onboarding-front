@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to submit post");
+          throw new Error("Failed post");
         }
         window.location.href = `/`;
       })
@@ -82,6 +82,5 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((error) => console.error(error));
   }
-  11;
   getUserId();
 });
