@@ -312,48 +312,47 @@ document.getElementById("heart-button").addEventListener("click", function () {
     const heartCount = document.getElementById("heart-count");
     const currentCount = parseInt(heartCount.textContent);
 
+    // 서버로 좋아요 증가 요청 (PATCH)
+    const updateLike = (action) => {
+        return fetch(`${hostURL}/api/post/${id}/like`, {
+            method: "PATCH",
+            credentials: "include",
+            body: JSON.stringify({ action: action }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    };
+
     if (!heartClicked) {
-        heartCount.textContent = currentCount + 1;
-        this.classList.add("active");
-
-        // 서버로 좋아요 증가 요청 (PATCH)
-        fetch(`${hostURL}/api/post/${id}/like`, {
-            method: "PATCH", // PATCH 요청으로 변경
-            credentials: "include",
-            body: JSON.stringify({ action: "like" }), // 필요한 경우 요청 본문에 추가 데이터 전송
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((response) => {
-            if (!response.ok) {
-                // 실패 시 처리
-                console.error("좋아요 증가 실패");
-                heartCount.textContent = currentCount; // 원래 수로 되돌림
-                this.classList.remove("active"); // 버튼 상태도 원래대로
-            }
-        });
+        updateLike("like")
+            .then((response) => {
+                if (response.ok) {
+                    heartCount.textContent = currentCount + 1;
+                    this.classList.add("active");
+                    heartClicked = true;
+                } else {
+                    console.error("좋아요 증가 실패");
+                }
+            })
+            .catch((error) => {
+                console.error("좋아요 증가 요청 에러:", error);
+            });
     } else {
-        heartCount.textContent = currentCount - 1;
-        this.classList.remove("active");
-
-        // 서버로 좋아요 감소 요청 (PATCH)
-        fetch(`${hostURL}/api/post/${id}/like`, {
-            method: "PATCH", // PATCH 요청으로 변경
-            credentials: "include",
-            body: JSON.stringify({ action: "unlike" }), // 필요한 경우 요청 본문에 추가 데이터 전송
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((response) => {
-            if (!response.ok) {
-                // 실패 시 처리
-                console.error("좋아요 감소 실패");
-                heartCount.textContent = currentCount; // 원래 수로 되돌림
-                this.classList.add("active"); // 버튼 상태도 원래대로
-            }
-        });
+        updateLike("unlike")
+            .then((response) => {
+                if (response.ok) {
+                    heartCount.textContent = currentCount - 1;
+                    this.classList.remove("active");
+                    heartClicked = false;
+                } else {
+                    console.error("좋아요 감소 실패");
+                }
+            })
+            .catch((error) => {
+                console.error("좋아요 감소 요청 에러:", error);
+            });
     }
-    heartClicked = !heartClicked;
 });
 
 // 이전화면으로 이동
