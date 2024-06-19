@@ -11,15 +11,19 @@ const heartBtn = document.querySelector("#heart-button");
 
 let isLogined = false;
 let user;
-const fetchUserUrl = `http://${hostURL}/api/user/`;
-fetch(fetchUserUrl,{credentials:"include",}).then(response => {
-    if(response.ok){
-        response.json().then((userData)=>{
-            user = userData;
-            isLogined = true;
-        });
-    }
+const fetchUserUrl = `${hostURL}/api/user/`;
+    fetch(fetchUserUrl,{credentials:"include",}).then(response => {
+        if(response.ok){
+            response.json().then((userData)=>{
+                user = userData;
+                isLogined = true;
+            });
+        }else {
+            
+        }
 });
+
+
 
 const url = new URL(window.location.href);
 const id = url.searchParams.get("id");
@@ -29,8 +33,8 @@ console.log(id);
 
 let isPostLoading = true;
 let post = {};
-const fetchPostsUrl = `http://${hostURL}/api/post/${id}`;
-const fetchCommentsUrl = `http://${hostURL}/api/post/${id}/comments`;
+const fetchPostsUrl = `${hostURL}/api/post/${id}`;
+const fetchCommentsUrl = `${hostURL}/api/post/${id}/comments`;
 // fetch를 사용한 게시글 요청
 fetch(fetchPostsUrl,{credentials:"include",})
     .then((response) => {
