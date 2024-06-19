@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getUserId() {
-        fetch(`${serverURL}api/user`)
+        fetch(`${serverURL}api/user`,{credentials:"include"})
             .then(response => response.json())
             .then(data => {
                 userId = data.id;
