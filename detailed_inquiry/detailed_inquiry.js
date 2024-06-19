@@ -32,7 +32,7 @@ let post = {};
 const fetchPostsUrl = `http://${hostURL}/api/post/${id}`;
 const fetchCommentsUrl = `http://${hostURL}/api/post/${id}/comments`;
 // fetch를 사용한 게시글 요청
-fetch(fetchPostsUrl)
+fetch(fetchPostsUrl,{credentials:"include"})
     .then((response) => {
         if (!response.ok) {
             throw new Error("Network response was not ok");
