@@ -46,32 +46,35 @@ document.addEventListener("DOMContentLoaded", () => {
     history.back();
   });
 
-  postBtn.addEventListener("click", (event) => {
+  postBtn.addEventListener("click", async (event) => {
     event.preventDefault();
 
+    const title = document.getElementById("title").value;
+    const detail = document.getElementById("detail").value;
+
     const data = {
-      title: title.value,
-      content: detail.value,
-      credentials: "include",
+      title: title,
+      content: detail,
     };
 
-    fetch(`${serverURL}api/post`, {
-      method: "POST",
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed post");
-        }
-        window.location.href = `/`;
-      })
-      .catch((error) => {
-        console.error(error);
+    try {
+      const response = await fetch(`${serverURL}api/post`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
       });
+
+      if (!response.ok) {
+        throw new Error(error);
+      }
+
+      window.location.href = `/`;
+    } catch (error) {
+      console.error("Failed to post:", error);
+    }
   });
 
   function getUserId() {
