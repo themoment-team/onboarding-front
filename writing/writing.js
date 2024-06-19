@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
 
-        postForm.addEventListener('submit', (event) => {
+        postBtn.addEventListener('click', (event) => {
             event.preventDefault();
 
             const data = {
@@ -67,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
-                credentials:"include",
             })
             .then(response => {
                 if (!response.ok) {
@@ -82,13 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     function getUserId() {
-        fetch(`${serverURL}api/user`,{credentials:"include"})
+        fetch(`${serverURL}api/user`)
             .then(response => response.json())
             .then(data => {
                 userId = data.id;
             })
             .catch(error => console.error(error));
     }
-
+11
     getUserId();
 });
