@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const postForm = document.querySelector("#postForm");
   const logo = document.querySelector("h1");
   const profile = document.querySelector("#profile");
-  const cookie = document.cookie;
   let userId = "";
 
   const serverURL =
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = {
       title: title.value,
       content: detail.value,
-      cookie: cookie,
+      credentials: "include",
     };
 
     fetch(`${serverURL}api/post`, {
