@@ -237,6 +237,9 @@ document
 
             fetch(fetchCommentsUrl, {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: {
                     content: commentText,
                     author: user.nickname,
