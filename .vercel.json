@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/:path*"
+        }
+    ]
+}
