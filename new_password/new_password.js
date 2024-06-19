@@ -10,23 +10,20 @@ document.addEventListener("DOMContentLoaded", function () {
     const profile = document.querySelector("#profile");
     let userId = "";
 
-    if (profile) {
         profile.addEventListener("click", function(){
             window.location.href = `/profile?id=${userId}`;
         });
-    }
 
-    if (logo) {
         logo.addEventListener('click', function(){
             window.location.href = "/";
         });
-    }
+    
 
     function btnColor() {
         const passwordValue = passwordInput.value;
         const newpasswordValue = newpasswordInput.value;
 
-        if (passwordValue !== "" && newpasswordValue !== "") {
+        if (passwordValue !== "" && newpasswordValue !== ""){
             nextBtn.style.color = "white";
             nextBtn.style.background = "var(--Main, #3269F6)";
         } else {
@@ -119,40 +116,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function redirectToLogin() {
-        window.location.href = "/login";
+        window.location.href = "/login/";
     }
 
     function redirectToSignup() {
-        window.location.href = "/users/signup";
+        window.location.href = "/signup";
     }
-
-    if (nextBtn) {
+ 
         nextBtn.addEventListener("click", changePassword);
-    }
+    
 
     const nextForm = document.getElementById("nextform");
-    if (nextForm) {
         nextForm.addEventListener("submit", changePassword);
-    }
+    
 
-    if (passwordInput) {
+
         passwordInput.addEventListener("input", btnColor);
         passwordInput.addEventListener("input", validatePassword);
         passwordInput.addEventListener("input", checkPassword);
-    }
+    
 
-    if (newpasswordInput) {
+
         newpasswordInput.addEventListener("input", btnColor);
         newpasswordInput.addEventListener("input", checkPassword);
-    }
-
-    if (loginBtn) {
+ 
         loginBtn.addEventListener("click", redirectToLogin);
-    }
 
-    if (signupBtn) {
         signupBtn.addEventListener("click", redirectToSignup);
-    }
 
     getUserId();
 });
