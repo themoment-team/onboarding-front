@@ -1,4 +1,4 @@
-const hostURL = document.location.host;
+const hostURL = "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app";
 const pageTitle = document.querySelector(".page-title");
 const article = document.querySelector(".article");
 const viewCount = document.querySelector("#view-count")
