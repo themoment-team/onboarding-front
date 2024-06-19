@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function checkLogin() {
-  fetch(`${serverUrl}api/user`)
+  fetch(`${serverUrl}api/user`, { credentials: "include" })
     .then((response) => {
       if (!response.ok) {
         throw new error("network!");
