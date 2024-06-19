@@ -37,6 +37,7 @@ let isPostLoading = true;
 let post = {};
 const fetchPostsUrl = `${hostURL}/api/post/${id}`;
 const fetchCommentsUrl = `${hostURL}/api/post/${id}/comments`;
+
 // fetch를 사용한 게시글 요청
 fetch(fetchPostsUrl, { credentials: "include" })
     .then((response) => {
@@ -309,15 +310,19 @@ updateCharCount();
 
 let heartClicked = false;
 document.getElementById("heart-button").addEventListener("click", function () {
+    if (!isLogined) {
+        alert("로그인 후 좋아요를 누를 수 있습니다.");
+        return;
+    }
+
     const heartCount = document.getElementById("heart-count");
     const currentCount = parseInt(heartCount.textContent);
 
     // 서버로 좋아요 증가 요청 (PATCH)
-    const updateLike = (action) => {
+    const updateLike = () => {
         return fetch(`${hostURL}/api/post/${id}/like`, {
             method: "PATCH",
             credentials: "include",
-            body: JSON.stringify({ action: action }),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -325,7 +330,7 @@ document.getElementById("heart-button").addEventListener("click", function () {
     };
 
     if (!heartClicked) {
-        updateLike("like")
+        updateLike()
             .then((response) => {
                 if (response.ok) {
                     heartCount.textContent = currentCount + 1;
@@ -339,7 +344,7 @@ document.getElementById("heart-button").addEventListener("click", function () {
                 console.error("좋아요 증가 요청 에러:", error);
             });
     } else {
-        updateLike("unlike")
+        updateLike()
             .then((response) => {
                 if (response.ok) {
                     heartCount.textContent = currentCount - 1;
