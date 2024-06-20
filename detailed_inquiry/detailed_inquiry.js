@@ -62,6 +62,13 @@ fetch(fetchPostsUrl, { credentials: "include" })
         viewCount.textContent = post.viewCount;
         isPostLoading = false;
         console.log("게시글:", post);
+
+        // 로컬 스토리지에서 좋아요 상태 불러오기
+        let heartClicked =
+            localStorage.getItem(`heartClicked_${id}`) === "true";
+        if (heartClicked) {
+            heartBtn.classList.add("active");
+        }
     })
     .catch((error) => {
         console.error("게시글 요청 에러:", error, fetchPostsUrl);
@@ -132,10 +139,10 @@ editButton.addEventListener("click", function () {
         post.content = article.textContent;
         fetch(fetchPostsUrl, {
             method: "PATCH",
-            body: {
+            body: JSON.stringify({
                 title: post.title,
                 content: post.content,
-            },
+            }),
             credentials: "include",
         }).then((response) => {
             if (!response.ok) alert("게시글 수정에 실패했습니다.");
@@ -208,167 +215,57 @@ document
         event.preventDefault();
 
         let commentText = document.getElementById("comment-text").value;
-        if (commentText.trim() !== "") {
-            commentText = commentText.replaceAll("\n", "<br>");
-            const commentList = document.getElementById("comment-list");
-            const newComment = document.createElement("div");
-            newComment.classList.add("comment");
-            newComment.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                <g clip-path="url(#clip0_2202_235)">
-                    <rect y="0.5" width="24" height="24" rx="12" fill="#CBCCCE" />
-                    <path d="M12.5 15.5C15.1244 15.5 17.25 13.3744 17.25 10.75C17.25 8.12562 15.1244 6 12.5 6C9.87563 6 7.75 8.12562 7.75 10.75C7.75 13.3744 9.87563 15.5 12.5 15.5ZM12.5 17.875C9.32937 17.875 3 19.4662 3 22.625V23.8125C3 24.4656 3.53438 25 4.1875 25H20.8125C21.4656 25 22 24.4656 22 23.8125V22.625C22 19.4662 15.6706 17.875 12.5 17.875Z" fill="white" />
-                </g>
-                <defs>
-                    <clipPath id="clip0_2202_235">
-                        <rect y="0.5" width="24" height="24" rx="12" fill="white" />
-                    </clipPath>
-                </defs>
-            </svg>
-            <strong class="commentAuthor">MY</strong>
-            <p>${commentText}</p>`;
-            commentList.appendChild(newComment);
+        if (!commentText) return;
 
-            document.getElementById("comment-text").value = "";
-
-            const textarea = document.getElementById("comment-text");
-            textarea.style.height = "50px";
-            const charCount = document.getElementById("char-count");
-            charCount.style.display = "none";
-
-            fetch(fetchCommentsUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    content: commentText,
-                    author: user.nickname,
-                }),
-                credentials: "include",
-            }).then((response) => {
-                if (!response.ok) alert("댓글 등록에 실패했습니다.");
-            });
-        }
+        fetch(fetchCommentsUrl, {
+            method: "POST",
+            body: JSON.stringify({ content: commentText }),
+            credentials: "include",
+        })
+            .then((response) => {
+                if (response.ok) return response.json();
+                else throw new Error("댓글 생성 실패");
+            })
+            .then((newComment) => {
+                const template = document.createElement("template");
+                template.innerHTML = `<div class="comment">
+                        <svg class="profile" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                            <g clip-path="url(#clip0_2202_235)">
+                                <rect y="0.5" width="24" height="24" rx="12" fill="#CBCCCE" />
+                                <path d="M12.5 15.5C15.1244 15.5 17.25 13.3744 17.25 10.75C17.25 8.12562 15.1244 6 12.5 6C9.87563 6 7.75 8.12562 7.75 10.75C7.75 13.3744 9.87563 15.5 12.5 15.5ZM12.5 17.875C9.32937 17.875 3 19.4662 3 22.625V23.8125C3 24.4656 3.53438 25 4.1875 25H20.8125C21.4656 25 22 24.4656 22 23.8125V22.625C22 19.4662 15.6706 17.875 12.5 17.875Z" fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_2202_235">
+                                    <rect y="0.5" width="24" height="24" rx="12" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <strong class="commentAuthor">${newComment.author}</strong>
+                        <p class="commentContent">${newComment.content}</p>
+                    </div>`;
+                commentList.appendChild(template.content.firstChild);
+                document.getElementById("comment-text").value = "";
+            })
+            .catch((error) => console.error("댓글 요청 에러:", error));
     });
 
-const commentTextElement = document.getElementById("comment-text");
-const maxChars = 100;
-const charCount = document.getElementById("char-count");
-const initialHeight = 50;
-
-function autoResize() {
-    commentTextElement.style.height = `${initialHeight}px`;
-    commentTextElement.style.height = commentTextElement.scrollHeight + "px";
-}
-
-function handleExcessCharacters() {
-    const commentText = commentTextElement.value;
-
-    if (commentText.length > 100) {
-        commentTextElement.value = commentText.slice(0, 100);
-    }
-}
-
-function updateCharCount() {
-    const remaining = 100 - commentTextElement.value.length;
-    const currentHeight = commentTextElement.clientHeight;
-
-    if (
-        currentHeight > initialHeight ||
-        commentTextElement.value.includes("\n")
-    ) {
-        charCount.textContent = `${remaining}`;
-        charCount.style.display = "block";
-    } else {
-        charCount.style.display = "none";
-    }
-}
-
-commentTextElement.addEventListener("input", autoResize);
-commentTextElement.addEventListener("input", handleExcessCharacters);
-commentTextElement.addEventListener("input", updateCharCount);
-commentTextElement.addEventListener("input", function () {
-    const textLength = commentTextElement.value.length;
-    charCount.textContent = maxChars - textLength;
-
-    if (textLength > maxChars) {
-        commentTextElement.classList.add("excess");
-    } else {
-        commentTextElement.classList.remove("excess");
-    }
-
-    if (commentTextElement.scrollHeight > initialHeight) {
-        charCount.style.display = "block";
-    } else {
-        charCount.style.display = "none";
-    }
-});
-
-autoResize();
-updateCharCount();
-
-let heartClicked =
-    localStorage.getItem("heartClicked") === "true" ? true : false;
-if (heartClicked) {
-    heartBtn.classList.add("active");
-}
-document.getElementById("heart-button").addEventListener("click", function () {
-    if (!isLogined) {
-        alert("로그인 후 좋아요를 누를 수 있습니다.");
-        return;
-    }
-
-    const heartCount = document.getElementById("heart-count");
-    const currentCount = parseInt(heartCount.textContent);
-
-    // 서버로 좋아요 증가 요청 (PATCH)
-    const updateLike = () => {
-        return fetch(`${hostURL}/api/post/${id}/like`, {
-            method: "PATCH",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-    };
-
-    if (!heartClicked) {
-        updateLike()
-            .then((response) => {
-                if (response.ok) {
-                    heartCount.textContent = currentCount + 1;
-                    this.classList.add("active");
-                    heartClicked = true;
-                    localStorage.setItem("heartClicked", "true");
-                } else {
-                    console.error("좋아요 증가 실패");
-                }
-            })
-            .catch((error) => {
-                console.error("좋아요 증가 요청 에러:", error);
-            });
-    } else {
-        updateLike()
-            .then((response) => {
-                if (response.ok) {
-                    heartCount.textContent = currentCount - 1;
-                    this.classList.remove("active");
-                    heartClicked = false;
-                    localStorage.setItem("heartClicked", "false");
-                } else {
-                    console.error("좋아요 감소 실패");
-                }
-            })
-            .catch((error) => {
-                console.error("좋아요 감소 요청 에러:", error);
-            });
-    }
-});
-
-// 이전화면으로 이동
-const previous = document.querySelector("#prvBtn");
-
-previous.addEventListener("click", function () {
-    history.back();
+heartBtn.addEventListener("click", function () {
+    const heartClicked = heartBtn.classList.contains("active");
+    const method = heartClicked ? "DELETE" : "POST";
+    fetch(`${fetchPostsUrl}/like`, {
+        method: method,
+        credentials: "include",
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("좋아요 요청 실패");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            heartBtn.classList.toggle("active");
+            likes.textContent = data.likes;
+            localStorage.setItem(`heartClicked_${id}`, !heartClicked);
+        })
+        .catch((error) => console.error("좋아요 요청 에러:", error));
 });
