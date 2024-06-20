@@ -1,196 +1,207 @@
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'Pretendard-Regular', sans-serif;
-    overflow-x: hidden; 
-  }
-  
-  .MAIN {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    height: 100vh;
-  }
-  
-  .container {
-    top: 0;
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 1200px;
-    position: relative;
-  }
-  
-  .header {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-    position: absolute;
-    top: -380px;
-    left: 0;
-    background-color: #ffffff;
-  }
-  
-  #signup, #login, #posting {
-    color: #8F9094;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22px;
-    border: none;
-    background-color: white;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .text-wrapper {
-    font-weight: 400;
-    color: #000000;
-    font-size: 24px;
-    text-align: center;
-    letter-spacing: normal;
-    line-height: 32px;
-    margin-right: 10px; /* 간격 줄이기 */
-  }
-  
-  .frame {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px; /* 간격 줄이기 */
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  #search {
-    border-radius: 15px;
-    width: 400px; /* 너비 줄이기 */
-    height: 40px;
-  }
-  
-  .frame-2 {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    position: relative;
-    margin-top: 120px; /* 여백 추가 */
-  }
-  
-  .frame-3 {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 24px;
-    position: relative;
-    flex: 0 0 auto;
-    border-radius: 12px;
-    border: 1px solid;
-    border-color: #E0E0E0;
-  }
-  
-  .frame-4 {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .text-wrapper-3 {
-    font-family: 'Pretendard-Regular';
-    font-weight: 400;
-    color: #000000;
-    font-size: 18px;
-    line-height: 24px;
-    white-space: nowrap;
-  }
-  
-  .p {
-    width: 500px;
-    font-family: 'Pretendard-Regular';
-    font-weight: 400;
-    color: #8F9094;
-    font-size: 14px;
-    line-height: 20px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .frame-5 {
-    display: flex;
-    width: 500px;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .frame-6 {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .img {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .text-wrapper-4 {
-    font-family: 'Pretendard-Regular';
-    font-weight: 400;
-    color: #000000;
-    font-size: 14px;
-    line-height: 20px;
-    white-space: nowrap;
-  }
-  
-  .frame-7 {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 12px;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .text-wrapper-5 {
-    font-family: 'Pretendard-Regular';
-    font-weight: 400;
-    color: #B4B5B7;
-    font-size: 14px;
-    line-height: 20px;
-    white-space: nowrap;
-  }
-  
-  .frame-8 {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    position: relative;
-    flex: 0 0 auto;
-  }
-  
-  .heart-streamline {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard-Regular", sans-serif;
+  overflow-x: hidden;
+}
+
+.MAIN {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  top: 0;
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  position: absolute;
+  top: -380px;
+  left: 0;
+  background-color: #ffffff;
+}
+
+#signup,
+#login,
+#posting {
+  color: #8f9094;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  border: none;
+  background-color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.text-wrapper {
+  font-weight: 400;
+  color: #000000;
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: normal;
+  line-height: 32px;
+  margin-right: 10px; /* 간격 줄이기 */
+}
+
+.frame {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* 간격 줄이기 */
+  position: relative;
+  flex: 0 0 auto;
+}
+
+#search {
+  border-radius: 15px;
+  width: 400px; /* 너비 줄이기 */
+  height: 40px;
+}
+
+.frame-2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  position: relative;
+  margin-top: 120px; /* 여백 추가 */
+}
+
+.frame-3 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  position: relative;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  border: 1px solid;
+  border-color: #e0e0e0;
+}
+
+.frame-4 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.text-wrapper-3 {
+  font-family: "Pretendard-Regular";
+  font-weight: 400;
+  color: #000000;
+  font-size: 18px;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.p {
+  width: 500px;
+  font-family: "Pretendard-Regular";
+  font-weight: 400;
+  color: #8f9094;
+  font-size: 14px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.frame-5 {
+  display: flex;
+  width: 500px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.frame-6 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+  bottom: 400px;
+  flex: 0 1 30%;
+}
+
+.img {
+  width: 24px;
+  height: 24px;
+}
+
+.text-wrapper-4 {
+  font-family: "Pretendard-Regular";
+  font-weight: 400;
+  color: #000000;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.frame-7 {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.text-wrapper-5 {
+  font-family: "Pretendard-Regular";
+  font-weight: 400;
+  color: #b4b5b7;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.frame-8 {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.heart-streamline {
+  width: 16px;
+  height: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+#postcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
