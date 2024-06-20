@@ -308,7 +308,11 @@ commentTextElement.addEventListener("input", function () {
 autoResize();
 updateCharCount();
 
-let heartClicked = false;
+let heartClicked =
+    localStorage.getItem("heartClicked") === "true" ? true : false;
+if (heartClicked) {
+    heartBtn.classList.add("active");
+}
 document.getElementById("heart-button").addEventListener("click", function () {
     if (!isLogined) {
         alert("로그인 후 좋아요를 누를 수 있습니다.");
@@ -336,6 +340,7 @@ document.getElementById("heart-button").addEventListener("click", function () {
                     heartCount.textContent = currentCount + 1;
                     this.classList.add("active");
                     heartClicked = true;
+                    localStorage.setItem("heartClicked", "true");
                 } else {
                     console.error("좋아요 증가 실패");
                 }
@@ -350,6 +355,7 @@ document.getElementById("heart-button").addEventListener("click", function () {
                     heartCount.textContent = currentCount - 1;
                     this.classList.remove("active");
                     heartClicked = false;
+                    localStorage.setItem("heartClicked", "false");
                 } else {
                     console.error("좋아요 감소 실패");
                 }
