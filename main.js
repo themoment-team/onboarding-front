@@ -70,7 +70,7 @@ function checkLogin() {
 }
 
 function fetchPosts() {
-  fetch(`${serverUrl}api/posts`, { credentials: "include" })
+  fetch(`${serverUrl}api/post`, { credentials: "include" })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
