@@ -9,7 +9,7 @@ const postList = document.querySelector("#post");
 const logo = document.querySelector("h1");
 const postsContainer = document.querySelector(".frame-6");
 const profile = document.querySelector("#profile");
-const allPosts = [];
+let allPosts = [];
 let id = "";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   checkLogin();
+  fetchPosts();
 
   searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -50,7 +51,7 @@ function checkLogin() {
   fetch(`${serverUrl}api/user`)
     .then((response) => {
       if (!response.ok) {
-        throw new error("network!");
+        throw new Error("Network response was not ok");
       }
       return response.text();
     })
@@ -60,10 +61,35 @@ function checkLogin() {
       posting.classList.remove("hidden");
     })
     .catch((error) => {
-      console.error("Error fetching data:", error);
+      console.error(error);
       posting.classList.add("hidden");
       logIn.classList.remove("hidden");
       signUp.classList.remove("hidden");
+    });
+}
+
+function fetchPosts() {
+  fetch(`${serverUrl}api/posts`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allPosts = data.map((post) => ({
+        id: post.id,
+        title: post.title,
+        author: post.author,
+        content: post.content,
+        counting: post.counting,
+        likes: post.likes,
+      }));
+
+      createPostElements(allPosts);
+    })
+    .catch((error) => {
+      console.error("Error fetching posts:", error);
     });
 }
 
@@ -140,3 +166,22 @@ function createPostElements(posts) {
     postsContainer.appendChild(postDiv);
   });
 }
+
+function fetchPosts() {
+  fetch(`${serverUrl}api/posts`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allPosts.push(...data);
+      createPostElements(allPosts);
+    })
+    .catch((error) => {
+      console.error("Error fetching posts:", error);
+    });
+}
+
+fetchPosts();
