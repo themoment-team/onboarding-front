@@ -9,6 +9,7 @@ const postList = document.querySelector("#post");
 const logo = document.querySelector("h1");
 const postsContainer = document.querySelector(".frame-6");
 const profile = document.querySelector("#profile");
+const allPosts = [];
 let id = "";
 
 document.addEventListener("DOMContentLoaded", () => {
