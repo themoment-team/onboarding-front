@@ -11,8 +11,15 @@ const postsContainer = document.querySelector(".frame-6");
 const profile = document.querySelector("#profile");
 let allPosts = [];
 let id = "";
+let postId = "";
+const post = document.querySelector(".post");
+
+post.addEventListener("click", function () {
+  window.location.href = `/posts/${postId}`;
+});
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
     });
 }
