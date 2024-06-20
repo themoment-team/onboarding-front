@@ -1,4 +1,5 @@
-const serverUrl = 'https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/';
+const serverUrl =
+    "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/";
 
 const logIn = document.querySelector("#login");
 const signUp = document.querySelector("#signup");
@@ -6,12 +7,12 @@ const posting = document.querySelector("#posting");
 const searchForm = document.querySelector("#searchForm");
 const postList = document.querySelector("#post");
 const logo = document.querySelector("h1");
-const postsContainer = document.querySelector('.frame-6');
+const postsContainer = document.querySelector(".frame-6");
 const profile = document.querySelector("#profile");
 const allPosts = [];
 let id = "";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     if (profile) {
         profile.addEventListener("click", () => {
             window.location.href = `/profile?id=${id}`;
@@ -29,58 +30,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (postList) {
-        postList.addEventListener('click', () => {
+        postList.addEventListener("click", () => {
             window.location.href = `/posts/?id=${id}`;
         });
     }
 
     if (posting) {
-        posting.addEventListener('click', () => {
-            window.location.href = '/posts/write';
+        posting.addEventListener("click", () => {
+            window.location.href = "/posts/write";
         });
     }
 
     if (logIn) {
-        logIn.addEventListener('click', () => {
-            window.location.href = '/login';
+        logIn.addEventListener("click", () => {
+            window.location.href = "/login";
         });
     }
 
     if (signUp) {
-        signUp.addEventListener('click', () => {
-            window.location.href = '/users/signup';
+        signUp.addEventListener("click", () => {
+            window.location.href = "/users/signup";
         });
     }
 
     if (logo) {
-        logo.addEventListener('click', () => {
+        logo.addEventListener("click", () => {
             window.location.href = "/";
         });
     }
 });
 
 function checkLogin() {
-    fetch(`${serverUrl}api/user`,
-        {credentials:"include"})
-    .then(response => {
-        if (!response.ok) {
-            throw new error("network!");
-        }
-        return response.text();
-    })
-    .then(data => {
+    fetch(`${serverUrl}api/user`, { credentials: "include" })
+        .then((response) => {
+            if (!response.ok) {
+                throw new error("network!");
+            }
+            return response.text();
+        })
+        .then((data) => {
             if (logIn) logIn.classList.add("hidden");
             if (signUp) signUp.classList.add("hidden");
             if (posting) posting.classList.remove("hidden");
-        }
-    )
-    .catch(error => {
-        console.error('Error fetching data:', error);
-        posting.classList.add("hidden");
-        if (logIn) logIn.classList.remove("hidden");
-        if (signUp) signUp.classList.remove("hidden");
-    });
-
+        })
+        .catch((error) => {
+            console.error("Error fetching data:", error);
+            posting.classList.add("hidden");
+            if (logIn) logIn.classList.remove("hidden");
+            if (signUp) signUp.classList.remove("hidden");
+        });
 }
 
 function searchPosts(query) {
@@ -89,26 +87,28 @@ function searchPosts(query) {
         return;
     }
 
-    const filteredPosts = allPosts.filter(post => {
-        return post.title.toLowerCase().includes(query.toLowerCase()) ||
-            post.content.toLowerCase().includes(query.toLowerCase());
+    const filteredPosts = allPosts.filter((post) => {
+        return (
+            post.title.toLowerCase().includes(query.toLowerCase()) ||
+            post.content.toLowerCase().includes(query.toLowerCase())
+        );
     });
 
     createPostElements(filteredPosts);
 }
 
 function createPostElements(posts) {
-    postsContainer.innerHTML = '';
+    postsContainer.innerHTML = "";
 
-    posts.forEach(post => {
-        const postDiv = document.createElement('div');
-        postDiv.classList.add('post');
+    posts.forEach((post) => {
+        const postDiv = document.createElement("div");
+        postDiv.classList.add("post");
 
-        const titleElement = document.createElement('h2');
+        const titleElement = document.createElement("h2");
         titleElement.textContent = post.title;
         titleElement.classList.add("text-wrapper-6");
 
-        const authorElement = document.createElement('p');
+        const authorElement = document.createElement("p");
         authorElement.classList.add("text-wrapper-7");
         authorElement.innerHTML = `<svg class="img" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <g clip-path="url(#clip0_2013_976)">
@@ -122,15 +122,15 @@ function createPostElements(posts) {
             </defs>
           </svg>${post.author}`;
 
-        const contentElement = document.createElement('p');
+        const contentElement = document.createElement("p");
         contentElement.textContent = post.content;
         contentElement.classList.add("p");
 
-        const counting = document.createElement('div');
-        counting.textContent = `${post.counting}회 조회`;
+        const counting = document.createElement("div");
+        counting.textContent = `${post.viewCount}회 조회`;
         counting.classList.add("text-wrapper-8");
 
-        const like = document.createElement('div');
+        const like = document.createElement("div");
         like.innerHTML = `
         <svg class="heart-streamline" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <g clip-path="url(#clip0_2013_1031)">
