@@ -11,6 +11,12 @@ const postsContainer = document.querySelector(".frame-6");
 const profile = document.querySelector("#profile");
 let allPosts = [];
 let id = "";
+let postId = "";
+const post = document.querySelector(".post");
+
+post.addEventListener("click", function () {
+  window.location.href = `/posts/${postId}`;
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   profile.addEventListener("click", () => {
@@ -78,6 +84,7 @@ function fetchPosts() {
       return response.json();
     })
     .then((data) => {
+      postId = post.id;
       allPosts = data.map((post) => ({
         id: post.id,
         title: post.title,
