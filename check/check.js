@@ -29,27 +29,30 @@ function logIn(event) {
     const id = idInput.value;
     const password = passwordInput.value;
 
-    fetch("https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/user/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name: id,
-            password: password,
-        }),
-        credentials:"include",
-    })
+    fetch(
+        "https://port-0-onboarding-server-f02w2almh8gdgs.sel5.cloudtype.app/api/login",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: id,
+                password: password,
+            }),
+            credentials: "include",
+        }
+    )
         .then((response) => response.json())
         .then((data) => {
-                window.location.href = `/`;
+            window.location.href = `/new_password/new_password.html`;
         })
         .catch((error) => console.error(error));
-            console.error(data.message);
-            error.innerText = "아이디와 비밀번호를 다시 한 번 확인해주세요";
-                idInput.style.border = "1px solid #DF454A";
-                passwordInput.style.border = "1px solid #DF454A";
-                error.style.color = "#DF454A";
+    console.error(data.message);
+    error.innerText = "아이디와 비밀번호를 다시 한 번 확인해주세요";
+    idInput.style.border = "1px solid #DF454A";
+    passwordInput.style.border = "1px solid #DF454A";
+    error.style.color = "#DF454A";
 }
 
 loginBtn.addEventListener("click", function () {
@@ -63,6 +66,6 @@ signupBtn.addEventListener("click", function () {
 nextBtn.addEventListener("click", logIn);
 logInForm.addEventListener("submit", logIn);
 
-logo.addEventListener('click', function () {
+logo.addEventListener("click", function () {
     window.location.href = "/";
 });
