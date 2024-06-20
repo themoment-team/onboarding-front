@@ -215,16 +215,16 @@ document
             newComment.classList.add("comment");
             newComment.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                            <g clip-path="url(#clip0_2202_235)">
-                                <rect y="0.5" width="24" height="24" rx="12" fill="#CBCCCE" />
-                                <path d="M12.5 15.5C15.1244 15.5 17.25 13.3744 17.25 10.75C17.25 8.12562 15.1244 6 12.5 6C9.87563 6 7.75 8.12562 7.75 10.75C7.75 13.3744 9.87563 15.5 12.5 15.5ZM12.5 17.875C9.32937 17.875 3 19.4662 3 22.625V23.8125C3 24.4656 3.53438 25 4.1875 25H20.8125C21.4656 25 22 24.4656 22 23.8125V22.625C22 19.4662 15.6706 17.875 12.5 17.875Z" fill="white" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_2202_235">
-                                    <rect y="0.5" width="24" height="24" rx="12" fill="white" />
-                                </clipPath>
-                            </defs>
-                        </svg>
+                <g clip-path="url(#clip0_2202_235)">
+                    <rect y="0.5" width="24" height="24" rx="12" fill="#CBCCCE" />
+                    <path d="M12.5 15.5C15.1244 15.5 17.25 13.3744 17.25 10.75C17.25 8.12562 15.1244 6 12.5 6C9.87563 6 7.75 8.12562 7.75 10.75C7.75 13.3744 9.87563 15.5 12.5 15.5ZM12.5 17.875C9.32937 17.875 3 19.4662 3 22.625V23.8125C3 24.4656 3.53438 25 4.1875 25H20.8125C21.4656 25 22 24.4656 22 23.8125V22.625C22 19.4662 15.6706 17.875 12.5 17.875Z" fill="white" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_2202_235">
+                        <rect y="0.5" width="24" height="24" rx="12" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
             <strong class="commentAuthor">MY</strong>
             <p>${commentText}</p>`;
             commentList.appendChild(newComment);
@@ -241,10 +241,10 @@ document
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: {
+                body: JSON.stringify({
                     content: commentText,
                     author: user.nickname,
-                },
+                }),
                 credentials: "include",
             }).then((response) => {
                 if (!response.ok) alert("댓글 등록에 실패했습니다.");
