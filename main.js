@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   signUp.addEventListener("click", () => {
-    window.location.href = "/users/signup";
+    window.location.href = "/signup";
   });
 
   logo.addEventListener("click", () => {
