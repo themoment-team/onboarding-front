@@ -9,7 +9,6 @@ const postList = document.querySelector("#post");
 const logo = document.querySelector("h1");
 const postsContainer = document.querySelector(".frame-6");
 const profile = document.querySelector("#profile");
-const allPosts = [];
 let id = "";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function checkLogin() {
-  fetch(`${serverUrl}api/user`, { credentials: "include" })
+  fetch(`${serverUrl}api/user`)
     .then((response) => {
       if (!response.ok) {
         throw new error("network!");
